@@ -9,7 +9,7 @@ CREATE TABLE Dependiente(
 	contrasenya VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
     imgPath VARCHAR(100) NOT NULL,
-	isEnable BOOLEAN NOT NULL,
+	enabled BOOLEAN NOT NULL,
     isAdmin BOOLEAN NOT NULL
 );
 
@@ -29,7 +29,7 @@ CREATE TABLE Producto(
     descripcion VARCHAR(200) NOT NULL,
     precio DECIMAL(10, 2) NOT NULL,
     imgPath VARCHAR(100) NOT NULL,
-    isEnable BOOLEAN NOT NULL,
+    enabled BOOLEAN NOT NULL,
     id_categoria CHAR(64) NOT NULL,
     FOREIGN KEY (id_categoria) REFERENCES Categoria(id)
 );

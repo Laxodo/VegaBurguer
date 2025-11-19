@@ -11,7 +11,7 @@ import ies.sequeros.com.dam.pmdm.administrador.modelo.Producto;
 import ies.sequeros.com.dam.pmdm.commons.infraestructura.DataBaseConnection;
 import ies.sequeros.com.dam.pmdm.commons.infraestructura.IDao;
 
-public class ProductoDAO implements IDao<Producto> {
+/*public class ProductoDAO implements IDao<Producto> {
     private DataBaseConnection conn;
     private final String table_name = "PRODUCTO";
     private final String selectall = "select * from " + table_name;
@@ -80,3 +80,4 @@ public class ProductoDAO implements IDao<Producto> {
         return pd;
     }
 }
+*/

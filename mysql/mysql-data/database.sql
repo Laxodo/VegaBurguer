@@ -18,6 +18,7 @@ CREATE TABLE Categoria(
 	id CHAR(64) NOT NULL PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     descripcion VARCHAR(200) NOT NULL,
+    imgPath VARCHAR(100) NOT NULL,
     isActive BOOLEAN NOT NULL
 );
 
@@ -27,6 +28,7 @@ CREATE TABLE Producto(
     nombre VARCHAR(50) NOT NULL,
     descripcion VARCHAR(200) NOT NULL,
     precio DECIMAL(10, 2) NOT NULL,
+    imgPath VARCHAR(100) NOT NULL,
     isEnable BOOLEAN NOT NULL,
     id_categoria CHAR(64) NOT NULL,
     FOREIGN KEY (id_categoria) REFERENCES Categoria(id)

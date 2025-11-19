@@ -53,6 +53,5 @@ CREATE TABLE LineaPedido(
     entregado BOOLEAN NOT NULL,
     id_pedido CHAR(64) NOT NULL,
     id_producto CHAR(64) NOT NULL,
-    FOREIGN KEY (id_pedido) REFERENCES Pedido(id),
-    FOREIGN KEY (id_producto) REFERENCES Producto(id)
+    FOREIGN KEY (id_pedido) REFERENCES Pedido(id)
 );

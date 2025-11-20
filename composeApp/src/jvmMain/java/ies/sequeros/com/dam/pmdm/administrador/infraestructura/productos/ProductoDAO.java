@@ -1,4 +1,4 @@
-package ies.sequeros.com.dam.pmdm.administrador.infraestructura.dependientes;
+package ies.sequeros.com.dam.pmdm.administrador.infraestructura.productos;
 
 
 import java.sql.PreparedStatement;

@@ -19,6 +19,7 @@ actual class AlmacenDatos {
     actual fun getAppDataDir(): String {
         return baseDir.absolutePath
     }
+
     actual suspend fun readFile(path: String, subdirectory:String): String {
         return withContext(Dispatchers.IO) {
             File(path).readText()
@@ -32,7 +33,6 @@ actual class AlmacenDatos {
     }
 
     actual suspend fun copy(source:String,name:String,subpath:String):String =
-
         withContext(Dispatchers.IO) {
             var dst = File(baseDir.toString() + subpath)
             var src = File(source)
@@ -44,7 +44,6 @@ actual class AlmacenDatos {
             )
             name + "." + extension
         }
-
 
     actual suspend fun remove(path: String) {
         withContext(Dispatchers.IO) {

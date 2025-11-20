@@ -6,10 +6,13 @@ import ies.sequeros.com.dam.pmdm.administrador.infraestructura.BBDDDependienteRe
 import ies.sequeros.com.dam.pmdm.administrador.infraestructura.dependientes.BBDDRepositorioDependientesJava
 import ies.sequeros.com.dam.pmdm.administrador.modelo.IDependienteRepositorio
 import ies.sequeros.com.dam.pmdm.commons.infraestructura.AlmacenDatos
+import ies.sequeros.com.dam.pmdm.commons.infraestructura.DataBaseConnection
 import java.io.FileInputStream
 import java.util.logging.LogManager
 fun main() = application {
-    val dependienteRepositorioJava=BBDDRepositorioDependientesJava("./app.properties")
+    var connection = DataBaseConnection()
+    connection.setConfig_path("./app.properties")
+    val dependienteRepositorioJava=BBDDRepositorioDependientesJava(connection)
     val dependienteRepositorio: IDependienteRepositorio = BBDDDependienteRepository(dependienteRepositorioJava )
     configureExternalLogging("./logging.properties")
     Window(

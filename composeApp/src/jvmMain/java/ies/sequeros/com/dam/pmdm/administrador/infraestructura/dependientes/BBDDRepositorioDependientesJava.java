@@ -9,11 +9,9 @@ import ies.sequeros.com.dam.pmdm.commons.infraestructura.DataBaseConnection;
 public  class BBDDRepositorioDependientesJava {
     private final DataBaseConnection db;
     private DependienteDao dao;
-    public BBDDRepositorioDependientesJava(String path) throws Exception {
+    public BBDDRepositorioDependientesJava(DataBaseConnection conn) throws Exception {
         super();
-        this.db = new DataBaseConnection();
-        this.db.setConfig_path(path);
-        this.db.open();
+        this.db = conn;
         dao= new DependienteDao();
         dao.setConn(this.db);
 

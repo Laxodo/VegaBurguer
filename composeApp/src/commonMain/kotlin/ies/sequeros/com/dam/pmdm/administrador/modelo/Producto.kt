@@ -4,9 +4,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Producto (
-    var id: String,
-    var name: String,
-    var isActive: Boolean,
-    var precio: Float
+    val id: String,
+    val name: String,
+    val description: String,
+    val imagePath: String,
+    val precio: Float,
+    val enabled: Boolean
 )
 

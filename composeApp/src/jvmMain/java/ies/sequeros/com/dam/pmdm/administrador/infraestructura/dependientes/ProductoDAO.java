@@ -11,15 +11,15 @@ import ies.sequeros.com.dam.pmdm.administrador.modelo.Producto;
 import ies.sequeros.com.dam.pmdm.commons.infraestructura.DataBaseConnection;
 import ies.sequeros.com.dam.pmdm.commons.infraestructura.IDao;
 
-/*public class ProductoDAO implements IDao<Producto> {
+public class ProductoDAO implements IDao<Producto> {
     private DataBaseConnection conn;
     private final String table_name = "PRODUCTO";
     private final String selectall = "select * from " + table_name;
     private final String selectbyid = "select * from " + table_name + " where id=?";
-    private final String selectbyname = "select * from " + table_name + " where name=?";
+    private final String findbyname = "select * from " + table_name + " where name=?";
     private final String deletebyid = "delete from " + table_name + " where id=?";
-    private final String insert = "INSERT INTO " + table_name + " (id + name + isActive + precio) " + "VALUES (?, ?, ?, ?)";
-    private final String update = "UPDATE " + table_name + " SET name = ?, isActive = ?, precio = ?" + "WHERE id = ?";
+    private final String insert = "INSERT INTO " + table_name + " (id + name + description + image_path + enabled + precio) " + "VALUES (?, ?, ?, ?, ?, ?)";
+    private final String update = "UPDATE " + table_name + " SET name = ?, description = ?, image_path = ?, enabled = ?, precio = ?" + "WHERE id = ?";
     public ProductoDAO() {
     }
 
@@ -46,7 +46,8 @@ import ies.sequeros.com.dam.pmdm.commons.infraestructura.IDao;
             logger.info("Ejecutando SQL: " + selectbyid + " | Parametros: [id=" + id + "]");
             return pd;
         } catch (final SQLException ex) {
-
+            Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE,
+                    null, ex);
         }
         return pd;
     }
@@ -54,11 +55,19 @@ import ies.sequeros.com.dam.pmdm.commons.infraestructura.IDao;
     public Producto findByName(final String name) {
         Producto pd = null;
         try {
-            final PreparedStatement pst = conn.getConnection().prepareStatement(selectbyname);
+            final PreparedStatement pst = conn.getConnection().prepareStatement(findbyname);
             pst.setString(1, name);
             final ResultSet rs = pst.executeQuery();
+            while(rs.next()) {
+                pd = registerToObject(rs);
+            }
+            pst.close();
+            Logger logger = Logger.getLogger(Producto.class.getName());
+            logger.info("Ejecutando SQL: " + findbyname + " | Parametros: [name = " + name + "]");
+            return pd;
         } catch (final SQLException ex) {
-
+            Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE,
+                    null, ex);
         }
     }
 
@@ -80,4 +89,3 @@ import ies.sequeros.com.dam.pmdm.commons.infraestructura.IDao;
         return pd;
     }
 }
-*/

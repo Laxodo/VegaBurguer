@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Categoria (
     var id: String,
-    var nombre: String,
-    var descripcion: String,
+    var name: String,
+    var description: String,
     var imgPath: String,
-    var isActive: Boolean
+    var enabled: Boolean
 )

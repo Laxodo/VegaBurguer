@@ -17,6 +17,6 @@ public class CategoriaDAO implements IDao<Categoria> {
     public CategoriaDAO() {
     }
 
-    
+
 
 }

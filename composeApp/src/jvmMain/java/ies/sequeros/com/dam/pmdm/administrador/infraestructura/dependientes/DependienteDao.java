@@ -16,17 +16,14 @@ import java.util.logging.Logger;
 
 public class DependienteDao implements IDao<Dependiente> {
     private DataBaseConnection conn;
-    private final String table_name = "DEPENDIENTE";
+    private final String table_name = "Dependiente";
     private final String selectall = "select * from " + table_name;
     private final String selectbyid = "select * from " + table_name + " where id=?";
     private final String findbyname = "select * from " + table_name + " where name=?";
 
     private final String deletebyid = "delete from " + table_name + " where id='?'";
-    private final String insert = "INSERT INTO " + table_name + " (id, name, email, password, image_path, enabled, is_admin) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private final String update =
-            "UPDATE " + table_name + " SET name = ?, email = ?, password = ?, image_path = ?, enabled = ?, is_admin = ? " +
-                    "WHERE id = ?";
+    private final String insert = "INSERT INTO " + table_name + " (id, name, email, password, image_path, enabled, isAdmin) " + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private final String update = "UPDATE " + table_name + " SET name = ?, email = ?, password = ?, image_path = ?, enabled = ?, isAdmin = ? " + "WHERE id = ?";
     public DependienteDao() {
     }
 
@@ -53,8 +50,7 @@ public class DependienteDao implements IDao<Dependiente> {
             logger.info("Ejecutando SQL: " + selectbyid + " | Parametros: [id=" + id + "]");
             return sp;
         } catch (final SQLException ex) {
-            Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return sp;
     }
@@ -74,8 +70,7 @@ public class DependienteDao implements IDao<Dependiente> {
 
             return sp;
         } catch (final SQLException ex) {
-            Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return sp;
     }
@@ -88,8 +83,7 @@ public class DependienteDao implements IDao<Dependiente> {
             try {
                 pst = conn.getConnection().prepareStatement(selectall);
             } catch (final SQLException ex) {
-                Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE,
-                        null, ex);
+                Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE, null, ex);
             }
             final ResultSet rs = pst.executeQuery();
             while (rs.next()) {
@@ -102,8 +96,7 @@ public class DependienteDao implements IDao<Dependiente> {
             logger.info("Ejecutando SQL: " + selectall+ " | Parametros: ");
 
         } catch (final SQLException ex) {
-            Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return scl;
@@ -111,10 +104,8 @@ public class DependienteDao implements IDao<Dependiente> {
 
     @Override
     public void update(final Dependiente item) {
-
         try {
-            final PreparedStatement pst =
-                    conn.getConnection().prepareStatement(update);
+            final PreparedStatement pst = conn.getConnection().prepareStatement(update);
             pst.setString(1, item.getName());
             pst.setString(2, item.getEmail());
             pst.setString(3, item.getPassword());
@@ -140,7 +131,6 @@ public class DependienteDao implements IDao<Dependiente> {
             Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
-
     }
 
     @Override
@@ -155,14 +145,12 @@ public class DependienteDao implements IDao<Dependiente> {
             logger.info("Ejecutando SQL: " + deletebyid + " | Parametros: [id=" + item.getId() + "]");
 
         } catch (final SQLException ex) {
-            Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
     public void insert(final Dependiente item) {
-
         final PreparedStatement pst;
         try {
            pst = conn.getConnection().prepareStatement(insert,
@@ -187,22 +175,17 @@ public class DependienteDao implements IDao<Dependiente> {
                             ", [5]=" + item.getImagePath() +
                             ", [6]=" + item.getEnabled() +
                             ", [7]=" + item.isAdmin() +
-
                             "]"
             );
-
         } catch (final SQLException ex) {
-            Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     //pasar de registro a objeeto
     private Dependiente registerToObject(final ResultSet r) {
          Dependiente sc =null;
-
         try {
-
             sc=new Dependiente(
                     r.getString("ID"),
                     r.getString("NAME"),
@@ -213,8 +196,7 @@ public class DependienteDao implements IDao<Dependiente> {
                     r.getBoolean("IS_ADMIN"));
             return sc;
         } catch (final SQLException ex) {
-            Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return sc;
     }

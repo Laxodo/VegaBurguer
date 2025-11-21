@@ -26,7 +26,7 @@ public class CategoriaDAO implements IDao<Categoria> {
     public CategoriaDAO() {
     }
 
-    public void DataBaseConnection getConn() {
+    public DataBaseConnection getConn() {
         return this.conn;
     }
 
@@ -130,7 +130,7 @@ public class CategoriaDAO implements IDao<Categoria> {
             pst.executeUpdate();
             pst.close();
             Logger logger = Logger.getLogger(CategoriaDAO.class.getName());
-            logger.info("Ejecutando SQL: " + deletebyid + " | Parametros: [id = " + item.getId() "]");
+            logger.info("Ejecutando SQL: " + deletebyid + " | Parametros: [id = " + item.getId() + "]");
         } catch (final SQLException ex) {
             Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -151,11 +151,11 @@ public class CategoriaDAO implements IDao<Categoria> {
             Logger logger = Logger.getLogger(CategoriaDAO.class.getName());
             logger.info(() ->
                     "Ejecutando SQL: " + insert +
-                            " | Params: [1]=" + item.getId() +
-                            ", [2]="+ item.getName() +
-                            ", [3]=" + item.getDescription() +
-                            ", [4]=" + item.getImgPath() +
-                            ", [5]=" + item.getEnabled() +
+                            " | Params: [1] = " + item.getId() +
+                            ", [2] = "+ item.getName() +
+                            ", [3] = " + item.getDescription() +
+                            ", [4] = " + item.getImgPath() +
+                            ", [5] = " + item.getEnabled() +
                             "]"
             );
         } catch (final SQLException ex) {

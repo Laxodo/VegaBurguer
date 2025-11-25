@@ -11,7 +11,7 @@ class ListarProductoUseCase(private val repositorio: IProductoRepositorio, priva
     suspend fun invoke( ): List<ProductoDTO> {
         //this.validateUser(user)
         //si tiene imagen
-        val items= repositorio.getAll().map { it.toDTO( ) }
+        val items= repositorio.getAll().map { it.toDTO(if(it.imagePath.isEmpty()) "" else almacenDatos.getAppDataDir()+"/productos/") }
         return items
     }
 }

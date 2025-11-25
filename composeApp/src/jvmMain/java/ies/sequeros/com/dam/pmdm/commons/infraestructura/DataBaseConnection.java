@@ -15,10 +15,10 @@ public class DataBaseConnection {
 
     public DataBaseConnection() {
     }
+
     public void open() throws Exception {
         FileReader fr = null;
-        File f =new File(System.getProperty("user.dir")+
-                this.getConfig_path());
+        File f =new File(System.getProperty("user.dir")+ this.getConfig_path());
         fr = new FileReader(f);
         Properties props = new Properties();
         try {
@@ -29,10 +29,8 @@ public class DataBaseConnection {
 
         String user = props.getProperty("database.user");
         String password = props.getProperty("database.password");
-        this.connection_string = props.getProperty("database.path")
-                + ";user=" + user + ";password=" + password;
-        this.conexion =
-                DriverManager.getConnection(this.connection_string);
+        this.connection_string = props.getProperty("database.path") + ";user=" + user + ";password=" + password;
+        this.conexion = DriverManager.getConnection(this.connection_string);
     }
 
     public Connection getConnection() {
@@ -46,6 +44,7 @@ public class DataBaseConnection {
 
         conexion = null;
     }
+
     public String getConfig_path() {
         return config_path;
     }

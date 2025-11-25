@@ -16,13 +16,13 @@ import ies.sequeros.com.dam.pmdm.commons.infraestructura.IDao;
 
 public class ProductoDAO implements IDao<Producto> {
     private DataBaseConnection conn;
-    private final String table_name = "PRODUCTO";
+    private final String table_name = "Producto";
     private final String selectall = "select * from " + table_name;
     private final String selectbyid = "select * from " + table_name + " where id = '?'";
     private final String findbyname = "select * from " + table_name + " where name = '?'";
     private final String deletebyid = "delete from " + table_name + " where id = '?'";
-    private final String insert = "INSERT INTO " + table_name + " (id + name + description + image_path + enabled + precio) " + "VALUES (?, ?, ?, ?, ?, ?)";
-    private final String update = "UPDATE " + table_name + " SET name = ?, description = ?, image_path = ?, enabled = ?, precio = ?" + " WHERE id = ?";
+    private final String insert = "INSERT INTO " + table_name + " (id + name + description + imgPath + enabled + precio) " + "VALUES (?, ?, ?, ?, ?, ?)";
+    private final String update = "UPDATE " + table_name + " SET name = ?, description = ?, imgPath = ?, enabled = ?, precio = ?" + " WHERE id = ?";
     public ProductoDAO() {
     }
 

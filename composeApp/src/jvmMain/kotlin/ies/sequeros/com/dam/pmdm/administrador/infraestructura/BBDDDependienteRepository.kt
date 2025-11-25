@@ -16,28 +16,26 @@ class BBDDDependienteRepository(
         bbddRepositorioDepedientesJava.remove(item)
         return true
     }
+
     override suspend fun remove(id: String): Boolean {
 
         bbddRepositorioDepedientesJava.remove(id)
         return true
-
     }
 
     override suspend fun update(item: Dependiente): Boolean {
-
         bbddRepositorioDepedientesJava.update(item)
         return true
     }
 
     override suspend fun getAll(): List<Dependiente> {
-
         return bbddRepositorioDepedientesJava.all
     }
 
     override suspend fun findByName(name: String): Dependiente? {
-
         return bbddRepositorioDepedientesJava.findByName( name)
     }
+
     override suspend fun getById(id: String): Dependiente? {
         return bbddRepositorioDepedientesJava.getById(id)
     }

@@ -48,6 +48,10 @@ public class BBDDRepositorioPedidosJava {
         return this.dao.getById(id);
     }
 
+    public Pedido findByName(String name) {
+        return null;
+    }
+
     public List<Pedido> findByIds(List<String> ids) {
         return null;
     }

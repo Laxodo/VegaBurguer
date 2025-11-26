@@ -30,7 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ies.sequeros.com.dam.pmdm.administrador.aplicacion.productos.listar.ProductoDTO
+import ies.sequeros.com.dam.pmdm.administrador.aplicacion.pedidos.listar.PedidoDTO
 
 import ies.sequeros.com.dam.pmdm.administrador.ui.MainAdministradorViewModel
 
@@ -38,14 +38,14 @@ import ies.sequeros.com.dam.pmdm.administrador.ui.MainAdministradorViewModel
 @Composable
 fun Productos(
     mainAdministradorViewModel: MainAdministradorViewModel,
-    productosViewModel: ProductosViewModel,
-    onSelectItem:(ProductoDTO?)->Unit
+    pedidosViewModel: PedidosViewModel,
+    onSelectItem:(PedidoDTO?)->Unit
 ){
-    val items by productosViewModel.items.collectAsState()
+    val items by pedidosViewModel.items.collectAsState()
     var searchText by remember { mutableStateOf("")}
     val filteredItems = items.filter {
         if (searchText.isNotBlank()) {
-            it.name.contains(searchText, ignoreCase = true)
+            it.clientName.contains(searchText, ignoreCase = true)
         }else{
             true
         }
@@ -77,7 +77,7 @@ fun Productos(
             Spacer(Modifier.width(8.dp))
             OutlinedButton(
                 onClick = {
-                    productosViewModel.setSelectedDependiente(null)
+                    pedidosViewModel.setSelectedPedido(null)
                     onSelectItem(null);
 
                 },
@@ -96,25 +96,7 @@ fun Productos(
             )
         ){
             items(filteredItems.size) { item ->
-                ProductoCard(filteredItems.get(item),
-                    {
-
-                        val element=it.copy(
-                            enabled = !it.enabled
-                        )
-                        productosViewModel.switchEnableDependiente(element)
-                    },{
-
-                        val element=it.copy(
-                            enabled = !it.enabled
-                        )
-                        productosViewModel.switchEnableDependiente(element)
-                    },{},{
-                        onSelectItem(it);
-
-                    },{
-                        productosViewModel.delete(it)
-                    })
+                ProductoCard(filteredItems.get(item),{})
 
             }
         }

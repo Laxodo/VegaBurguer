@@ -41,7 +41,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import ies.sequeros.com.dam.pmdm.administrador.aplicacion.productos.listar.ProductoDTO
+import ies.sequeros.com.dam.pmdm.administrador.aplicacion.pedidos.listar.PedidoDTO
 import ies.sequeros.com.dam.pmdm.commons.ui.ImagenDesdePath
 
 
@@ -52,20 +52,11 @@ import vegaburguer.composeapp.generated.resources.hombre
 @Suppress("UnrememberedMutableState")
 @Composable
 fun ProductoCard(
-    item: ProductoDTO,
-    onActivate: (item:ProductoDTO) -> Unit,
-    onDeactivate: (item:ProductoDTO) -> Unit,
-    onView: () -> Unit,
-    onEdit: (ProductoDTO) -> Unit,
-    onDelete: (item: ProductoDTO) -> Unit
+    item: PedidoDTO,
+    onView: () -> Unit
 ) {
-    val cardAlpha by animateFloatAsState(if (item.enabled) 1f else 0.5f)
-    val imagePath =mutableStateOf(if(item.imagePath!=null && item.imagePath.isNotEmpty()) item.imagePath else "")
-    val borderColor = when {
-        //item.isAdmin -> MaterialTheme.colorScheme.primary
-        !item.enabled -> MaterialTheme.colorScheme.outline
-        else -> MaterialTheme.colorScheme.secondary
-    }
+    val cardAlpha by animateFloatAsState( 1f)
+    val borderColor = MaterialTheme.colorScheme.secondary
 
     Card(
         modifier = Modifier
@@ -87,22 +78,12 @@ fun ProductoCard(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             // Imagen circular con borde
-            Box(
-                modifier = Modifier
-                    .size(90.dp)
-                    .clip(CircleShape)
-                    .border(3.dp, borderColor, CircleShape)
-                    .background(MaterialTheme.colorScheme.surfaceVariant),
-                contentAlignment = Alignment.Center
-            ) {
-                ImagenDesdePath(imagePath, Res.drawable.hombre, Modifier.fillMaxWidth())
 
-            }
 
             //  Nombre y correo
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = item.name,
+                    text = item.clientName,
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
                 )/*
@@ -111,45 +92,6 @@ fun ProductoCard(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )*/
-            }
-
-            // 🧩 Estado y rol
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                AssistChip(
-                    onClick = {},
-                    label = {
-                        Text(if (item.enabled) "Activo" else "Inactivo")
-                    },
-                    leadingIcon = {
-                        Icon(
-                            if (item.enabled) Icons.Default.CheckCircle else Icons.Default.Block,
-                            contentDescription = null,
-                            tint = if (item.enabled)
-                                MaterialTheme.colorScheme.primary
-                            else
-                                MaterialTheme.colorScheme.error
-                        )
-                    },
-                    colors = AssistChipDefaults.assistChipColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant
-                    )
-                )
-
-                /*if (item.isAdmin) {
-                    AssistChip(
-                        onClick = { onChangeAdmin(item)},
-                        label = { Text("Administrador") },
-                        leadingIcon = {
-                            Icon(Icons.Default.AdminPanelSettings, contentDescription = null)
-                        },
-                        colors = AssistChipDefaults.assistChipColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer
-                        )
-                    )
-                }*/
             }
 
             HorizontalDivider(
@@ -163,61 +105,9 @@ fun ProductoCard(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Activar / Desactivar
-                OutlinedIconButton(
-                    onClick = { if (item.enabled)
-                        onDeactivate(item)
-                    else
-                        onActivate(item) },
-                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = if (item.enabled)
-                            MaterialTheme.colorScheme.errorContainer
-                        else
-                            MaterialTheme.colorScheme.secondaryContainer
-                    )
-                ) {
-                    Icon(
-                        if (item.enabled) Icons.Default.VisibilityOff else Icons.Default.Visibility,
-                        contentDescription = if (item.enabled) "Desactivar" else "Activar"
-                    )
-                }
-
-                // Cambiar admin
-                /*OutlinedIconButton(
-                    onClick ={ onChangeAdmin(item)},
-                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = if (item.isAdmin)
-                            MaterialTheme.colorScheme.primaryContainer
-                        else
-                            MaterialTheme.colorScheme.surfaceVariant
-                    )
-                ) {
-                    Icon(Icons.Default.ManageAccounts, contentDescription = "Admin")
-                }*/
-
                 // Ver detalles
                 OutlinedIconButton(onClick = onView) {
                     Icon(Icons.AutoMirrored.Filled.Article, contentDescription = "Ver")
-                }
-
-                // Editar
-                OutlinedIconButton(onClick = { onEdit(item) }) {
-                    Icon(Icons.Default.Edit, contentDescription = "Editar")
-                }
-
-                // profe ejemplo
-                /*OutlinedIconButton(onClick = { onPasswordChange(item) }) {
-                    Icon(Icons.Default.Password, contentDescription = "Editar")
-                }*/
-
-                // Eliminar
-                OutlinedIconButton(
-                    onClick = { onDelete(item) },
-                    colors = IconButtonDefaults.iconButtonColors(
-                        contentColor = MaterialTheme.colorScheme.error
-                    )
-                ) {
-                    Icon(Icons.Default.Delete, contentDescription = "Eliminar")
                 }
             }
         }

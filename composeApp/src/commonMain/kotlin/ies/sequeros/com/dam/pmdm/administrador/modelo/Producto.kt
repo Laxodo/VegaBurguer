@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Producto (
-    val id: String,
+    var id: String,
     val name: String,
     val description: String,
     val imagePath: String,

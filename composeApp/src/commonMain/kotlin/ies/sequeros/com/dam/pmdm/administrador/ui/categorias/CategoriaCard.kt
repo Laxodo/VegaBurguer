@@ -102,7 +102,7 @@ fun CategoriaCard(
 
             }
 
-            //  Nombre y correo
+            //  Nombre
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = item.name,
@@ -139,6 +139,20 @@ fun CategoriaCard(
                     colors = AssistChipDefaults.assistChipColors(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant
                     )
+                )
+            }
+
+            HorizontalDivider(
+                Modifier.fillMaxWidth(0.8f),
+                DividerDefaults.Thickness, MaterialTheme.colorScheme.outlineVariant
+            )
+
+            //  Descripcion
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = item.description,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 

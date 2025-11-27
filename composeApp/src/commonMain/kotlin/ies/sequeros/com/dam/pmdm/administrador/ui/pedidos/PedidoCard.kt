@@ -80,18 +80,13 @@ fun PedidoCard(
             // Imagen circular con borde
 
 
-            //  Nombre y correo
+            //  Nombre
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = item.clientName,
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
-                )/*
-                Text(
-                    text = item.email,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )*/
+                )
             }
 
             HorizontalDivider(

@@ -21,8 +21,8 @@ public class ProductoDAO implements IDao<Producto> {
     private final String selectbyid = "select * from " + table_name + " where id = '?'";
     private final String findbyname = "select * from " + table_name + " where name = '?'";
     private final String deletebyid = "delete from " + table_name + " where id = '?'";
-    private final String insert = "INSERT INTO " + table_name + " (id + name + description + imgPath + enabled + precio) " + "VALUES (?, ?, ?, ?, ?, ?)";
-    private final String update = "UPDATE " + table_name + " SET name = ?, description = ?, imgPath = ?, enabled = ?, precio = ?" + " WHERE id = ?";
+    private final String insert = "INSERT INTO " + table_name + " (id + name + description + imgPath + enabled + precio + id_categoria) " + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private final String update = "UPDATE " + table_name + " SET name = ?, description = ?, imgPath = ?, enabled = ?, precio = ?, id_categoria = ?" + " WHERE id = ?";
     public ProductoDAO() {
     }
 
@@ -107,7 +107,8 @@ public class ProductoDAO implements IDao<Producto> {
             pst.setString(3, item.getImagePath());
             pst.setBoolean(4, item.getEnabled());
             pst.setFloat(5, item.getPrice());
-            pst.setString(6, item.getId());
+            pst.setString(6, item.getId_categoria());
+            pst.setString(7, item.getId());
             pst.executeUpdate();
             pst.close();
             Logger logger = Logger.getLogger(ProductoDAO.class.getName());
@@ -118,7 +119,8 @@ public class ProductoDAO implements IDao<Producto> {
                             ", [3]=" + item.getImagePath() +
                             ", [4]=" + item.getEnabled() +
                             ", [5]=" + item.getPrice() +
-                            ", [6]=" + item.getId() +
+                            ", [6]=" + item.getId_categoria() +
+                            ", [7]=" + item.getId() +
                             "]"
             );
         } catch (final SQLException ex) {
@@ -151,17 +153,19 @@ public class ProductoDAO implements IDao<Producto> {
             pst.setString(4, item.getImagePath());
             pst.setBoolean(5, item.getEnabled());
             pst.setFloat(6, item.getPrice());
+            pst.setString(7, item.getId_categoria());
             pst.executeUpdate();
             pst.close();
             Logger logger = Logger.getLogger(ProductoDAO.class.getName());
             logger.info(() ->
-                    "Ejecutando SQL: " + update +
+                    "Ejecutando SQL: " + insert +
                             " | Params: [1]=" + item.getId() +
                             ", [2]="+ item.getName() +
                             ", [3]=" + item.getDescription() +
                             ", [4]=" + item.getImagePath() +
                             ", [5]=" + item.getEnabled() +
                             ", [6]=" + item.getPrice() +
+                            ", [7]=" + item.getId_categoria() +
                             "]"
             );
         } catch (final SQLException ex) {
@@ -178,7 +182,8 @@ public class ProductoDAO implements IDao<Producto> {
                     r.getString("DESCRIPTION"),
                     r.getString("IMAGE_PATH"),
                     r.getBoolean("ENABLED"),
-                    r.getFloat("PRECIO"));
+                    r.getFloat("PRECIO"),
+                    r.getString("ID_Categoria"));
             return pd;
         } catch (final SQLException ex) {
             Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, ex);

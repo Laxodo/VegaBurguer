@@ -74,12 +74,6 @@ class ProductoFormViewModel (private val item: ProductoDTO?,
         return null
     }
 
-    private fun validateConfirmPassword(pw: String, confirm: String): String? {
-        if (confirm.isBlank()) return "Confirma la contraseña"
-        if (pw != confirm) return "Las contraseñas no coinciden"
-        return null
-    }
-
     fun validateAll(): Boolean {
         val s = _uiState.value
         val nombreErr = validateNombre(s.nombre)

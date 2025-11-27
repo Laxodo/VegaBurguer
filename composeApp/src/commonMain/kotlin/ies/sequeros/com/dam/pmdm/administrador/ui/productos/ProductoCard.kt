@@ -61,11 +61,7 @@ fun ProductoCard(
 ) {
     val cardAlpha by animateFloatAsState(if (item.enabled) 1f else 0.5f)
     val imagePath =mutableStateOf(if(item.imagePath!=null && item.imagePath.isNotEmpty()) item.imagePath else "")
-    val borderColor = when {
-        //item.isAdmin -> MaterialTheme.colorScheme.primary
-        !item.enabled -> MaterialTheme.colorScheme.outline
-        else -> MaterialTheme.colorScheme.secondary
-    }
+    val borderColor = if(item.enabled) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.outline
 
     Card(
         modifier = Modifier
@@ -99,21 +95,16 @@ fun ProductoCard(
 
             }
 
-            //  Nombre y correo
+            //  Nombre
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = item.name,
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
-                )/*
-                Text(
-                    text = item.email,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )*/
+                )
             }
 
-            // 🧩 Estado y rol
+            // 🧩 Estado
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -137,19 +128,6 @@ fun ProductoCard(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant
                     )
                 )
-
-                /*if (item.isAdmin) {
-                    AssistChip(
-                        onClick = { onChangeAdmin(item)},
-                        label = { Text("Administrador") },
-                        leadingIcon = {
-                            Icon(Icons.Default.AdminPanelSettings, contentDescription = null)
-                        },
-                        colors = AssistChipDefaults.assistChipColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer
-                        )
-                    )
-                }*/
             }
 
             HorizontalDivider(
@@ -182,19 +160,6 @@ fun ProductoCard(
                     )
                 }
 
-                // Cambiar admin
-                /*OutlinedIconButton(
-                    onClick ={ onChangeAdmin(item)},
-                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = if (item.isAdmin)
-                            MaterialTheme.colorScheme.primaryContainer
-                        else
-                            MaterialTheme.colorScheme.surfaceVariant
-                    )
-                ) {
-                    Icon(Icons.Default.ManageAccounts, contentDescription = "Admin")
-                }*/
-
                 // Ver detalles
                 OutlinedIconButton(onClick = onView) {
                     Icon(Icons.AutoMirrored.Filled.Article, contentDescription = "Ver")
@@ -204,11 +169,6 @@ fun ProductoCard(
                 OutlinedIconButton(onClick = { onEdit(item) }) {
                     Icon(Icons.Default.Edit, contentDescription = "Editar")
                 }
-
-                // profe ejemplo
-                /*OutlinedIconButton(onClick = { onPasswordChange(item) }) {
-                    Icon(Icons.Default.Password, contentDescription = "Editar")
-                }*/
 
                 // Eliminar
                 OutlinedIconButton(

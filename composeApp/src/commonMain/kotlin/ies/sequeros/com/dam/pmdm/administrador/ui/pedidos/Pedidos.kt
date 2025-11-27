@@ -36,7 +36,7 @@ import ies.sequeros.com.dam.pmdm.administrador.ui.MainAdministradorViewModel
 
 
 @Composable
-fun Productos(
+fun Pedidos(
     mainAdministradorViewModel: MainAdministradorViewModel,
     pedidosViewModel: PedidosViewModel,
     onSelectItem:(PedidoDTO?)->Unit
@@ -96,7 +96,7 @@ fun Productos(
             )
         ){
             items(filteredItems.size) { item ->
-                ProductoCard(filteredItems.get(item),{})
+                PedidoCard(filteredItems.get(item),{})
 
             }
         }

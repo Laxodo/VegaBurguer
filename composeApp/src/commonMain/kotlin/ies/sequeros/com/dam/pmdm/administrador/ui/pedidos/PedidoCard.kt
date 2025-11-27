@@ -51,7 +51,7 @@ import vegaburguer.composeapp.generated.resources.hombre
 
 @Suppress("UnrememberedMutableState")
 @Composable
-fun ProductoCard(
+fun PedidoCard(
     item: PedidoDTO,
     onView: () -> Unit
 ) {

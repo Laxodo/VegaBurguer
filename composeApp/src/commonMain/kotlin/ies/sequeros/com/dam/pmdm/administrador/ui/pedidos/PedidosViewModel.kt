@@ -44,7 +44,7 @@ class PedidosViewModel(
 
     fun delete(item: PedidoDTO) {
         viewModelScope.launch {
-          //  borrarDependienteUseCase.invoke(item.id)
+          //  borrarProductoUseCase.invoke(item.id)
             _items.update { current ->
                 current.filterNot { it.id == item.id }.toMutableList()
             }

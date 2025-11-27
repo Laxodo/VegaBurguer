@@ -47,6 +47,17 @@ import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.Dependientes
 import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.DependientesViewModel
 import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.form.DependienteForm
 
+import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.Categoria
+import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.CategoriaViewModel
+
+import ies.sequeros.com.dam.pmdm.administrador.ui.productos.Productos
+import ies.sequeros.com.dam.pmdm.administrador.ui.productos.ProductosViewModel
+import ies.sequeros.com.dam.pmdm.administrador.ui.productos.form.ProductoForm
+
+import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.Pedidos
+import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.PedidosViewModel
+import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.form.PedidoForm
+
 
 @Suppress("ViewModelConstructorInComposable")
 @Composable
@@ -55,7 +66,9 @@ fun MainAdministrador(
     mainViewModel: MainAdministradorViewModel,
     administradorViewModel: AdministradorViewModel,
     dependientesViewModel: DependientesViewModel,
-
+    categoriasViewModel: CategoriaViewModel,
+    pedidosViewModel: PedidosViewModel,
+    productosViewModel: ProductosViewModel,
 
     onExit: () -> Unit
 ) {
@@ -176,10 +189,65 @@ fun MainAdministrador(
                     }
                 )
             }
+            composable(AdminRoutes.Categorias){
+                Categoria(mainViewModel,categoriaViewModel,{
+                    categoriaViewModel.setSelectedCategoria(it)
+                    navController.navigate(AdminRoutes.Categoria) {
+                        launchSingleTop = true
+
+                    }
+                })
+            }
+            composable (AdminRoutes.Categoria){
+                CategoriaForm(
+                    categoriasViewModel,{
+                        navController.popBackStack()
+                    },{
+                        categoriasViewModel.save(it)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(AdminRoutes.Productos){
+                Productos(mainViewModel,productosViewModel,{
+                    productosViewModel.setSelectedProducto(it)
+                    navController.navigate(AdminRoutes.Producto) {
+                        launchSingleTop = true
+
+                    }
+                })
+            }
+            composable (AdminRoutes.Producto){
+                ProductoForm(
+                    productosViewModel,{
+                        navController.popBackStack()
+                    },{
+                        productosViewModel.save(it)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            /*composable(AdminRoutes.Pedidos){
+                Pedidos(mainViewModel,pedidosViewModel,{
+                    pedidosViewModel.setSelectedPedido(it)
+                    navController.navigate(AdminRoutes.Pedido) {
+                        launchSingleTop = true
+
+                    }
+                })
+            }*/
+            composable (AdminRoutes.Pedido){
+                PedidoForm(
+                    pedidosViewModel,{
+                        navController.popBackStack()
+                    },{
+                        navController.popBackStack()
+                    }
+                )
+            }
 
         }
     }
-
 
 
     if (wai?.windowSizeClass?.windowWidthSizeClass == WindowWidthSizeClass.COMPACT) {

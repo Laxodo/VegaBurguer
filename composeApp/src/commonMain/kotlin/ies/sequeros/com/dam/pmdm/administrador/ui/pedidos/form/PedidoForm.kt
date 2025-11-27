@@ -1,4 +1,4 @@
-package ies.sequeros.com.dam.pmdm.administrador.ui.productos.form
+package ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.form
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,25 +12,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Autorenew
-import androidx.compose.material.icons.filled.CheckCircleOutline
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PersonOutline
 import androidx.compose.material.icons.filled.Save
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -44,13 +37,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.PedidosViewModel
 
-import ies.sequeros.com.dam.pmdm.administrador.ui.productos.ProductosViewModel
 import ies.sequeros.com.dam.pmdm.commons.ui.ImagenDesdePath
 import ies.sequeros.com.dam.pmdm.commons.ui.SelectorImagenComposable
 
@@ -59,24 +49,20 @@ import vegaburguer.composeapp.generated.resources.hombre
 
 
 @Composable
-fun ProductoForm(
+fun PedidoForm(
     //appViewModel: AppViewModel,
-    productoViewModel: ProductosViewModel,
+    pedidoViewModel: PedidosViewModel,
     onClose: () -> Unit,
-    onConfirm: (datos: ProductoFormState) -> Unit = {},
-    productoFormularioViewModel: ProductoFormViewModel = viewModel {
-        ProductoFormViewModel(
-            productoViewModel.selected.value, onConfirm
+    onConfirm: (datos: PedidoFormState) -> Unit = {},
+    pedidoFormularioViewModel: PedidoFormViewModel = viewModel {
+        PedidoFormViewModel(
+            pedidoViewModel.selected.value, onConfirm
         )
     }
 ) {
-    val state by productoFormularioViewModel.uiState.collectAsState()
-    val formValid by productoFormularioViewModel.isFormValid.collectAsState()
-    var passwordVisible by remember { mutableStateOf(false) }
-    var confirmPasswordVisible by remember { mutableStateOf(false) }
-    val selected = productoViewModel.selected.collectAsState()
-    val imagePath =
-        remember { mutableStateOf(if (state.imagePath != null && state.imagePath.isNotEmpty()) state.imagePath else "") }
+    val state by pedidoFormularioViewModel.uiState.collectAsState()
+    val formValid by pedidoFormularioViewModel.isFormValid.collectAsState()
+    val selected = pedidoViewModel.selected.collectAsState()
 
     //val names = CartoonString.getNames() - "default"
 
@@ -125,46 +111,14 @@ fun ProductoForm(
 
             //  Campos
             OutlinedTextField(
-                value = state.nombre,
-                onValueChange = { productoFormularioViewModel.onNombreChange(it) },
+                value = state.clientName,
+                onValueChange = { pedidoFormularioViewModel.onNombreChange(it) },
                 label = { Text("Nombre completo") },
                 leadingIcon = { Icon(Icons.Default.PersonOutline, contentDescription = null) },
                 isError = state.nombreError != null,
                 modifier = Modifier.fillMaxWidth()
             )
             state.nombreError?.let {
-                Text(
-                    it,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.error
-                )
-            }
-
-            // Checkboxes
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Checkbox(
-                        checked = state.enabled,
-                        onCheckedChange = { productoFormularioViewModel.onEnabledChange(it) }
-                    )
-                    Text("Activo", style = MaterialTheme.typography.bodyMedium)
-                }
-            }
-
-            //  Selector de avatar
-            Text("Selecciona un avatar:", style = MaterialTheme.typography.titleSmall)
-
-            HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
-            val scope = rememberCoroutineScope()
-            SelectorImagenComposable({ it: String ->
-                productoFormularioViewModel.onImagePathChange(it)//  productoViewModel.almacenDatos.copy(it, "prueba","/productos_imgs/")
-                imagePath.value = it
-            })
-
-            HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
-
-            ImagenDesdePath(imagePath, Res.drawable.hombre, Modifier.fillMaxSize())
-            state.imagePathError?.let {
                 Text(
                     it,
                     style = MaterialTheme.typography.labelSmall,
@@ -179,7 +133,7 @@ fun ProductoForm(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                FilledTonalButton(onClick = { productoFormularioViewModel.clear() }) {
+                FilledTonalButton(onClick = { pedidoFormularioViewModel.clear() }) {
                     Icon(Icons.Default.Autorenew, contentDescription = null)
                     //Spacer(Modifier.width(6.dp))
                     //Text("Limpiar")
@@ -187,9 +141,9 @@ fun ProductoForm(
 
                 Button(
                     onClick = {
-                        productoFormularioViewModel.submit(
+                        pedidoFormularioViewModel.submit(
                             onSuccess = {
-                                onConfirm(productoFormularioViewModel.uiState.value)
+                                onConfirm(pedidoFormularioViewModel.uiState.value)
                             },
                             onFailure = {}
                         )

@@ -77,7 +77,7 @@ fun Productos(
             Spacer(Modifier.width(8.dp))
             OutlinedButton(
                 onClick = {
-                    productosViewModel.setSelectedDependiente(null)
+                    productosViewModel.setSelectedProducto(null)
                     onSelectItem(null);
 
                 },
@@ -102,13 +102,13 @@ fun Productos(
                         val element=it.copy(
                             enabled = !it.enabled
                         )
-                        productosViewModel.switchEnableDependiente(element)
+                        productosViewModel.switchEnableProducto(element)
                     },{
 
                         val element=it.copy(
                             enabled = !it.enabled
                         )
-                        productosViewModel.switchEnableDependiente(element)
+                        productosViewModel.switchEnableProducto(element)
                     },{},{
                         onSelectItem(it);
 

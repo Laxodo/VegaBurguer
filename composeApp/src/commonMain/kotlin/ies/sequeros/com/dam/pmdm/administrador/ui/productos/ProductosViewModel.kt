@@ -55,11 +55,11 @@ class ProductosViewModel(
         }
     }
 
-    fun setSelectedDependiente(item: ProductoDTO?) {
+    fun setSelectedProducto(item: ProductoDTO?) {
         _selected.value = item
     }
 
-    fun switchEnableDependiente(item: ProductoDTO) {
+    fun switchEnableProducto(item: ProductoDTO) {
         val command= ActivarProductoCommand(
             item.id,
             item.enabled,
@@ -80,7 +80,7 @@ class ProductosViewModel(
 
     fun delete(item: ProductoDTO) {
         viewModelScope.launch {
-          //  borrarDependienteUseCase.invoke(item.id)
+          //  borrarProductoUseCase.invoke(item.id)
             _items.update { current ->
                 current.filterNot { it.id == item.id }.toMutableList()
             }

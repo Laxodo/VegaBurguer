@@ -6,7 +6,9 @@ import ies.sequeros.com.dam.pmdm.administrador.infraestructura.BBDDDependienteRe
 import ies.sequeros.com.dam.pmdm.administrador.infraestructura.dependientes.BBDDRepositorioDependientesJava
 import ies.sequeros.com.dam.pmdm.administrador.infraestructura.BBDDCategoriaRepository
 import ies.sequeros.com.dam.pmdm.administrador.infraestructura.categorias.BBDDRepositorioCategoriasJava
+import ies.sequeros.com.dam.pmdm.administrador.infraestructura.BBDDPedidoRepository
 import ies.sequeros.com.dam.pmdm.administrador.infraestructura.pedidos.BBDDRepositorioPedidosJava
+import ies.sequeros.com.dam.pmdm.administrador.infraestructura.BBDDProductoRepository
 import ies.sequeros.com.dam.pmdm.administrador.infraestructura.productos.BBDDRepositorioProductosJava
 import ies.sequeros.com.dam.pmdm.administrador.modelo.IDependienteRepositorio
 import ies.sequeros.com.dam.pmdm.administrador.modelo.ICategoriaRepositorio

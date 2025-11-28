@@ -14,5 +14,5 @@ fun CategoriaDTO.toCategoria()= Categoria(
     name = name,
     description = description,
     imgPath = imgPath,
-    enabled = enabled
+    enabled = enabled,
 )

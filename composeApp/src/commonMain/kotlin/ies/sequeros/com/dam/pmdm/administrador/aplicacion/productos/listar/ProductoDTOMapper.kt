@@ -2,22 +2,23 @@ package ies.sequeros.com.dam.pmdm.administrador.aplicacion.productos.listar
 
 import ies.sequeros.com.dam.pmdm.administrador.modelo.Producto
 
-fun Producto.toDTO(categoria: String) = ProductoDTO(
+fun Producto.toDTO(path: String, categoria: String) = ProductoDTO(
     id = id,
     name = name,
     description = description,
     categoria = categoria,
-    imagePath = imagePath,
+    imagePath = path+imagePath,
     enabled = enabled,
     price = price
 )
-fun ProductoDTO.toProducto()= Producto(
+fun ProductoDTO.toProducto(id_categoria: String)= Producto(
     id = id,
     name = name,
     description = description,
     imagePath = imagePath,
     enabled = enabled,
-    price = price
+    price = price,
+    id_categoria = id_categoria
 )
 /*
 val id: String,

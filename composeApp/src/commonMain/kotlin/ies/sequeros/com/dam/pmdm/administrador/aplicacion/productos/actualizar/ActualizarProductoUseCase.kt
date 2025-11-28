@@ -2,6 +2,7 @@ package ies.sequeros.com.dam.pmdm.administrador.aplicacion.productos.actualizar
 
 import ies.sequeros.com.dam.pmdm.administrador.aplicacion.productos.listar.ProductoDTO
 import ies.sequeros.com.dam.pmdm.administrador.aplicacion.productos.listar.toDTO
+import ies.sequeros.com.dam.pmdm.administrador.modelo.ICategoriaRepositorio
 import ies.sequeros.com.dam.pmdm.administrador.modelo.Producto
 import ies.sequeros.com.dam.pmdm.administrador.modelo.IProductoRepositorio
 import ies.sequeros.com.dam.pmdm.commons.infraestructura.AlmacenDatos
@@ -20,7 +21,7 @@ class ActualizarProductoUseCase(private val repositorio: IProductoRepositorio,
             throw IllegalArgumentException("El producto no esta registrado.")
         }
         //se pasa a dto para tener el path
-        var itemDTO: ProductoDTO=item.toDTO(almacenDatos.getAppDataDir()+"/productos/")
+        var itemDTO: ProductoDTO=item.toDTO(almacenDatos.getAppDataDir()+"/productos/", command.id_categoria)
 
         //si las rutas son diferentes se borra y se copia
         if(itemDTO.imagePath!=command.imagePath) {
@@ -36,10 +37,11 @@ class ActualizarProductoUseCase(private val repositorio: IProductoRepositorio,
             description = command.description,
             imagePath = nuevaImagePath,
             enabled = command.enabled,
-            price = command.price
+            price = command.price,
+            id_categoria = command.id_categoria
         )
         repositorio.update(newProduct)
         //se devuelve con el path correcto
-        return newProduct.toDTO(almacenDatos.getAppDataDir()+"/productos/")
+        return newProduct.toDTO(almacenDatos.getAppDataDir()+"/productos/", command.id_categoria)
     }
 }

@@ -10,11 +10,12 @@ fun Pedido.toDTO() = PedidoDTO(
     totalPrice = totalPrice,
     date = date
 )
-fun PedidoDTO.toPedido()= Pedido(
+fun PedidoDTO.toPedido(id_dependiente: String)= Pedido(
     id = id,
     clientName = clientName,
     productNumber = productNumber,
     pendingProducts = pendingProducts,
     totalPrice = totalPrice,
-    date = date
+    date = date,
+    id_dependiente = id_dependiente
 )

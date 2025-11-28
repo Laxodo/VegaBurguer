@@ -1,41 +1,41 @@
 package ies.sequeros.com.dam.pmdm.administrador.infraestructura
 
-import ies.sequeros.com.dam.pmdm.administrador.infraestructura.lineapedidos.BBDDRepositorioLineaPedidosJava
+import ies.sequeros.com.dam.pmdm.administrador.infraestructura.lineapedido.BBDDRepositorioLineaPedidosJava
 import ies.sequeros.com.dam.pmdm.administrador.modelo.LineaPedido
 import ies.sequeros.com.dam.pmdm.administrador.modelo.ILineaPedidoRepositorio
 
 class BBDDLineaPedidoRepository (
-    private val bbddRepositorioLineaPedidoJava: BBDDRepositorioLineaPedidoJava
+    private val bbddRepositorioLineaPedidoJava: BBDDRepositorioLineaPedidosJava
 ) : ILineaPedidoRepositorio {
     override suspend fun add(item: LineaPedido) {
         bbddRepositorioLineaPedidoJava.add(item)
     }
 
     override suspend fun remove(item: LineaPedido): Boolean {
-        bbddRepositorioDepedientesJava.remove(item)
+        bbddRepositorioLineaPedidoJava.remove(item)
         return true
     }
 
     override suspend fun remove(id: String): Boolean {
 
-        bbddRepositorioDepedientesJava.remove(id)
+        bbddRepositorioLineaPedidoJava.remove(id)
         return true
     }
 
     override suspend fun update(item: LineaPedido): Boolean {
-        bbddRepositorioDepedientesJava.update(item)
+        bbddRepositorioLineaPedidoJava.update(item)
         return true
     }
 
     override suspend fun getAll(): List<LineaPedido> {
-        return bbddRepositorioDepedientesJava.all
+        return bbddRepositorioLineaPedidoJava.all
     }
 
     override suspend fun findByName(name: String): LineaPedido? {
-        return bbddRepositorioDepedientesJava.findByName( name)
+        return bbddRepositorioLineaPedidoJava.findByName( name)
     }
 
     override suspend fun getById(id: String): LineaPedido? {
-        return bbddRepositorioDepedientesJava.getById(id)
+        return bbddRepositorioLineaPedidoJava.getById(id)
     }
 }

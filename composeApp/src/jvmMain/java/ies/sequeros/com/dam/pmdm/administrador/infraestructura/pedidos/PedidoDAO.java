@@ -20,8 +20,8 @@ public class PedidoDAO implements IDao<Pedido> {
     private final String selectbyid = "select * from " + table_name + " where id = ?";
     private final String findbyname = "select * from " + table_name + " where name = ?";
     private final String deletebyid = "select * from " + table_name + " where id = '?'";
-    private final String insert = "INSERT INTO " + table_name + " (id, clienteName, productName, pendingProduct, totalPrice, date)" + " VALUES(?, ?, ?, ?, ?, ?)";
-    private final String update = "UPDATE "+ table_name + " SET clientName = ?, productName = ?, pendingProduct = ?, totalPrice = ?, date = ?" + " WHERE id = ?";
+    private final String insert = "INSERT INTO " + table_name + " (id, clienteName, productName, pendingProduct, totalPrice, date, id_dependiente)" + " VALUES(?, ?, ?, ?, ?, ?, ?)";
+    private final String update = "UPDATE "+ table_name + " SET clientName = ?, productName = ?, pendingProduct = ?, totalPrice = ?, date = ?, id_dependiente = ?" + " WHERE id = ?";
 
     public PedidoDAO() {
     }
@@ -105,6 +105,7 @@ public class PedidoDAO implements IDao<Pedido> {
             pst.setInt(3, item.getPendingProducts());
             pst.setFloat(4, item.getTotalPrice());
             pst.setInt(5, item.getDate());
+            pst.setString(6, item.getId_dependiente());
             pst.setString(6, item.getId());
             pst.executeUpdate();
             pst.close();
@@ -116,7 +117,8 @@ public class PedidoDAO implements IDao<Pedido> {
                             ", [3]=" + item.getPendingProducts() +
                             ", [4]=" + item.getTotalPrice() +
                             ", [5]=" + item.getDate() +
-                            ", [6]=" + item.getId() +
+                            ", [6]=" + item.getId_dependiente() +
+                            ", [7]=" + item.getId() +
                             "]"
             );
         } catch (final SQLException ex) {
@@ -149,6 +151,7 @@ public class PedidoDAO implements IDao<Pedido> {
             pst.setInt(4, item.getPendingProducts());
             pst.setFloat(5, item.getTotalPrice());
             pst.setInt(6, item.getDate());
+            pst.setString(7, item.getId_dependiente());
             pst.executeUpdate();
             pst.close();
             Logger logger = Logger.getLogger(PedidoDAO.class.getName());
@@ -160,6 +163,7 @@ public class PedidoDAO implements IDao<Pedido> {
                             ", [4]=" + item.getPendingProducts() +
                             ", [5]=" + item.getTotalPrice() +
                             ", [6]=" + item.getDate() +
+                            ", [7]=" + item.getId_dependiente() +
                             "]"
             );
         } catch (final SQLException ex) {
@@ -176,7 +180,8 @@ public class PedidoDAO implements IDao<Pedido> {
                     r.getInt("PRODUCTNUMBER"),
                     r.getInt("PENDINGPRODUCTS"),
                     r.getFloat("TOTALPRICE"),
-                    r.getInt("DATE"));
+                    r.getInt("DATE"),
+                    r.getString("ID_DEPENDIENTE"));
             return pd;
         } catch (final SQLException ex) {
             Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);

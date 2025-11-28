@@ -9,6 +9,7 @@ data class Producto (
     val description: String,
     val imagePath: String,
     val enabled: Boolean,
-    val price: Float
+    val price: Float,
+    val id_categoria: String
 )
 

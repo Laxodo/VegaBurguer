@@ -13,7 +13,7 @@ class BorrarProductosUseCase(private val repositorio: IProductoRepositorio,priva
             throw IllegalArgumentException("El id no está registrado.")
         }
         //se borra del repositorio
-        val tempoDto=tempo.toDTO("")
+        val tempoDto=tempo.toDTO("", tempo.id_categoria)
 
         repositorio.remove(id)
         //se borra la imagen una vez borrado del repositorio

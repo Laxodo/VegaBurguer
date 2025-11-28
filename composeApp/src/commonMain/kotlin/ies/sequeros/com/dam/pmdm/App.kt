@@ -65,7 +65,7 @@ fun App(
         categoriaRepositorio, almacenImagenes
     ) }
     val productoViewModel = viewModel { ProductosViewModel(
-        productoRepositorio, almacenImagenes
+        productoRepositorio, categoriaRepositorio,almacenImagenes
     ) }
     val pedidoViewModel = viewModel { PedidosViewModel(
         pedidoRepositorio, almacenImagenes

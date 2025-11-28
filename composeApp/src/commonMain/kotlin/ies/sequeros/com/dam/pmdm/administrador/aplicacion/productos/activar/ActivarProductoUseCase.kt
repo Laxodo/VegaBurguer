@@ -18,6 +18,6 @@ class ActivarProductoUseCase(private val repositorio: IProductoRepositorio, priv
         )
         repositorio.update(newProduct)
         //se devuelve con el path correcto
-        return newProduct.toDTO(almacenDatos.getAppDataDir()+"/productos/")
+        return newProduct.toDTO(almacenDatos.getAppDataDir()+"/productos/", item.id_categoria)
     }
 }

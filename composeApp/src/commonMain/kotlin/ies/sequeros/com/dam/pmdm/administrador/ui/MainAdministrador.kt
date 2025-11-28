@@ -49,6 +49,7 @@ import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.form.DependienteF
 
 import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.Categoria
 import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.CategoriaViewModel
+import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.form.CategoriaForm
 
 import ies.sequeros.com.dam.pmdm.administrador.ui.productos.Productos
 import ies.sequeros.com.dam.pmdm.administrador.ui.productos.ProductosViewModel
@@ -190,8 +191,8 @@ fun MainAdministrador(
                 )
             }
             composable(AdminRoutes.Categorias){
-                Categoria(mainViewModel,categoriaViewModel,{
-                    categoriaViewModel.setSelectedCategoria(it)
+                Categoria(mainViewModel,categoriasViewModel,{
+                    categoriasViewModel.setSelectedCategoria(it)
                     navController.navigate(AdminRoutes.Categoria) {
                         launchSingleTop = true
 

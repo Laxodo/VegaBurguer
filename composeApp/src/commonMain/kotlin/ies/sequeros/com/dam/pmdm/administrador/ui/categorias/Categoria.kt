@@ -78,7 +78,7 @@ fun Categoria(
             Spacer(Modifier.width(8.dp))
             OutlinedButton(
                 onClick = {
-                    categoriaViewModel.setSelectedDependiente(null)
+                    categoriaViewModel.setSelectedCategoria(null)
                     onSelectItem(null);
 
                 },
@@ -103,13 +103,13 @@ fun Categoria(
                         val element=it.copy(
                             enabled = !it.enabled
                         )
-                        categoriaViewModel.switchEnableDependiente(element)
+                        categoriaViewModel.switchEnableCategoria(element)
                     },{
 
                         val element=it.copy(
                             enabled = !it.enabled
                         )
-                        categoriaViewModel.switchEnableDependiente(element)
+                        categoriaViewModel.switchEnableCategoria(element)
                     },{},{
                         onSelectItem(it);
 

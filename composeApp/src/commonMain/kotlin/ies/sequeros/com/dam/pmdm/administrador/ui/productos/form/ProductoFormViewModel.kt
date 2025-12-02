@@ -30,10 +30,12 @@ class ProductoFormViewModel (private val item: ProductoDTO?,
         if(item==null)
         state.nombreError == null &&
                 state.imagePathError ==null &&
-
+                state.descripcionError == null &&
+                state.priceError == null &&
                 !state.nombre.isBlank() &&
+                state.descripcion.isNotBlank() &&
                 state.imagePath.isNotBlank()
-    else{
+        else{
             state.nombreError == null &&
                     state.imagePathError ==null &&
                     !state.nombre.isBlank() &&
@@ -48,6 +50,12 @@ class ProductoFormViewModel (private val item: ProductoDTO?,
 
     fun onNombreChange(v: String) {
         _uiState.value = _uiState.value.copy(nombre = v, nombreError = validateNombre(v))
+    }
+    fun onDescripcionChange(v: String) {
+        _uiState.value = _uiState.value.copy(nombre = v, descripcionError = validateDescripcion(v))
+    }
+    fun onPriceChange(v: String) {
+        _uiState.value = _uiState.value.copy(nombre = v, priceError = validatePrice(v))
     }
     fun onImagePathChange(v: String) {
         _uiState.value = _uiState.value.copy(imagePath =  v, imagePathError =  validateImagePath(v))
@@ -69,6 +77,14 @@ class ProductoFormViewModel (private val item: ProductoDTO?,
         if (nombre.length < 2) return "El nombre es muy corto"
         return null
     }
+    private fun validateDescripcion(descripcion: String): String? {
+        if (descripcion.isBlank()) return "La descripcion es obligatoria"
+        return null
+    }
+    private fun validatePrice(price: String): String? {
+        if (price.isBlank()) return "El precio es obligatorio"
+        return null
+    }
     private fun validateImagePath(path: String): String? {
         if (path.isBlank()) return "La imagen es obligatoria"
         return null
@@ -77,6 +93,8 @@ class ProductoFormViewModel (private val item: ProductoDTO?,
     fun validateAll(): Boolean {
         val s = _uiState.value
         val nombreErr = validateNombre(s.nombre)
+        val descripcionErr = validateDescripcion(s.descripcion)
+        val priceErr = validatePrice(s.price.toString())
         val imageErr=validateImagePath(s.imagePath)
         val newState = s.copy(
             nombreError = nombreErr,

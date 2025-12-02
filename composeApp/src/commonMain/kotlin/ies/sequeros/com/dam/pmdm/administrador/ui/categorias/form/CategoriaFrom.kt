@@ -130,61 +130,65 @@ fun CategoriaForm(
                     color = MaterialTheme.colorScheme.error
                 )
             }
-        }
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Checkbox(
-                    checked = state.enabled,
-                    onCheckedChange = { CategoriaFormularioViewModel.onEnabledChange(it) }
-                )
-                Text("activo", style = MaterialTheme.typography.bodyMedium)
+
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(
+                        checked = state.enabled,
+                        onCheckedChange = { CategoriaFormularioViewModel.onEnabledChange(it) }
+                    )
+                    Text("activo", style = MaterialTheme.typography.bodyMedium)
+                }
             }
-        }
-    }
-    Text("Seleccione una imagen:", style = MaterialTheme.typography.titleSmall)
-    HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
-    val scope = rememberCoroutineScope()
-    SelectorImagenComposable({ it: String ->
-        CategoriaFormularioViewModel.onImgPathChange(it)
-        imgPath.value = it
-    })
 
-    HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
-    ImagenDesdePath(imgPath, Res.drawable.hombre, Modifier.fillMaxSize())
-    state.imgPathError?.let {
-        Text(
-            it,
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.error
-        )
-    }
+            Text("Seleccione una imagen:", style = MaterialTheme.typography.titleSmall)
+            HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
+            val scope = rememberCoroutineScope()
+            SelectorImagenComposable({ it: String ->
+                CategoriaFormularioViewModel.onImgPathChange(it)
+                imgPath.value = it
+            })
 
-    HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        FilledTonalButton(onClick = { CategoriaFormularioViewModel.clear() }) {
-            Icon(Icons.Default.Autorenew, contentDescription = null)
-        }
-
-        Button(
-            onClick = {
-                CategoriaFormularioViewModel.submit(
-                    onSuccess = {
-                        onConfirm(CategoriaFormularioViewModel.uiState.value)
-                    },
-                    onFailure = {}
+            HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
+            ImagenDesdePath(imgPath, Res.drawable.hombre, Modifier.fillMaxSize())
+            state.imgPathError?.let {
+                Text(
+                    it,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.error
                 )
-            },
-            enabled = formValid
-        ) {
-            Icon(Icons.Default.Save, contentDescription = null)
-        }
+            }
 
-        FilledTonalButton(onClick = { onClose() }) {
-            Icon(Icons.Default.Close, contentDescription = null)
+            HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                FilledTonalButton(onClick = { CategoriaFormularioViewModel.clear() }) {
+                    Icon(Icons.Default.Autorenew, contentDescription = null)
+                }
+
+                Button(
+                    onClick = {
+                        CategoriaFormularioViewModel.submit(
+                            onSuccess = {
+                                onConfirm(CategoriaFormularioViewModel.uiState.value)
+                            },
+                            onFailure = {}
+                        )
+                    },
+                    enabled = formValid
+                ) {
+                    Icon(Icons.Default.Save, contentDescription = null)
+                }
+
+                FilledTonalButton(onClick = { onClose() }) {
+                    Icon(Icons.Default.Close, contentDescription = null)
+                }
+            }
+
         }
     }
+
 }

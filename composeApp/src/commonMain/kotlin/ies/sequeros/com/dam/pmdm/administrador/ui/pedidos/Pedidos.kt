@@ -74,21 +74,6 @@ fun Pedidos(
                     .weight(1f)
                     .padding(8.dp)
             )
-            Spacer(Modifier.width(8.dp))
-            OutlinedButton(
-                onClick = {
-                    pedidosViewModel.setSelectedPedido(null)
-                    onSelectItem(null);
-
-                },
-                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.primary)
-            ) {  Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "Add",
-                modifier = Modifier
-                    .size(ButtonDefaults.IconSize)
-            ) }
-
         }
         LazyVerticalGrid(
             columns = GridCells.Adaptive(

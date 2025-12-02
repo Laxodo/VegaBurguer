@@ -52,7 +52,9 @@ public  class BBDDRepositorioDependientesJava {
     }
     public void close(){
         try {
-            this.db.close();
+            if(this.db.getConnection() != null){
+                this.db.close();
+            }
         //no hace caso de esta excepción
         } catch (SQLException e) {
             e.printStackTrace();

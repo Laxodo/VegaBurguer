@@ -72,8 +72,6 @@ fun ProductoForm(
 ) {
     val state by productoFormularioViewModel.uiState.collectAsState()
     val formValid by productoFormularioViewModel.isFormValid.collectAsState()
-    var passwordVisible by remember { mutableStateOf(false) }
-    var confirmPasswordVisible by remember { mutableStateOf(false) }
     val selected = productoViewModel.selected.collectAsState()
     val imagePath =
         remember { mutableStateOf(if (state.imagePath != null && state.imagePath.isNotEmpty()) state.imagePath else "") }
@@ -112,9 +110,9 @@ fun ProductoForm(
                 )
                 Text(
                     text = if (selected == null)
-                        "Crear nuevo usuario"
+                        "Crear nuevo producto"
                     else
-                        "Editar usuario",
+                        "Editar producto",
                     style = MaterialTheme.typography.headlineSmall,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -127,12 +125,44 @@ fun ProductoForm(
             OutlinedTextField(
                 value = state.nombre,
                 onValueChange = { productoFormularioViewModel.onNombreChange(it) },
-                label = { Text("Nombre completo") },
+                label = { Text("Nombre del producto") },
                 leadingIcon = { Icon(Icons.Default.PersonOutline, contentDescription = null) },
                 isError = state.nombreError != null,
                 modifier = Modifier.fillMaxWidth()
             )
             state.nombreError?.let {
+                Text(
+                    it,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+
+            OutlinedTextField(
+                value = state.descripcion,
+                onValueChange = { productoFormularioViewModel.onDescripcionChange(it) },
+                label = { Text("Descripcion del producto") },
+                leadingIcon = { Icon(Icons.Default.PersonOutline, contentDescription = null) },
+                isError = state.descripcionError != null,
+                modifier = Modifier.fillMaxWidth()
+            )
+            state.descripcionError?.let {
+                Text(
+                    it,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+
+            OutlinedTextField(
+                value = state.price.toString(),
+                onValueChange = { productoFormularioViewModel.onPriceChange(it) },
+                label = { Text("Precio del producto") },
+                leadingIcon = { Icon(Icons.Default.PersonOutline, contentDescription = null) },
+                isError = state.priceError != null,
+                modifier = Modifier.fillMaxWidth()
+            )
+            state.priceError?.let {
                 Text(
                     it,
                     style = MaterialTheme.typography.labelSmall,

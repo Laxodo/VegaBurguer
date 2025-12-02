@@ -9,6 +9,8 @@ data class ProductoFormState(
     val id_categoria: String = "",
     // errores (null = sin error)
     val nombreError: String? = null,
+    val descripcionError: String? = null,
+    val priceError: String? = null,
     val imagePathError:String?=null,
 
     // para controlar si se intentó enviar (mostrar errores globales)

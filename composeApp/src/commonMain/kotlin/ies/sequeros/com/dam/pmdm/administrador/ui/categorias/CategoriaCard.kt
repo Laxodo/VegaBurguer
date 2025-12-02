@@ -65,10 +65,7 @@ fun CategoriaCard(
 ) {
     val cardAlpha by animateFloatAsState(if (item.enabled) 1f else 0.5f)
     val imagePath =mutableStateOf(if(item.imgPath!=null && item.imgPath.isNotEmpty()) item.imgPath else "")
-    val borderColor = when {
-        !item.enabled -> MaterialTheme.colorScheme.outline
-        else -> MaterialTheme.colorScheme.secondary
-    }
+    val borderColor = if(item.enabled) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.outline
 
     Card(
         modifier = Modifier

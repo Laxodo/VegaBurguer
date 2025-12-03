@@ -181,9 +181,9 @@ public class ProductoDAO implements IDao<Producto> {
                     r.getString("NAME"),
                     r.getString("DESCRIPTION"),
                     r.getFloat("PRICE"),
-                    r.getString("IMG_PATH"),
+                    r.getString("IMGPATH"),
                     r.getBoolean("ENABLED"),
-                    r.getString("ID_CATEGORIA"));
+                    r.getString("IDCATEGORIA"));
             return pd;
         } catch (final SQLException ex) {
             Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, ex);

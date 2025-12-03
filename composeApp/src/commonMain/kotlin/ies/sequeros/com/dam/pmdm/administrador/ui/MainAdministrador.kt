@@ -128,7 +128,7 @@ fun MainAdministrador(
             ItemOption(
                 Icons.AutoMirrored.Filled.FactCheck,
                 {
-                    navController.navigate(AdminRoutes.Pedido) {
+                    navController.navigate(AdminRoutes.Pedidos) {
                         //
                         launchSingleTop = true
                         popUpTo(AdminRoutes.Main)
@@ -228,7 +228,7 @@ fun MainAdministrador(
                     }
                 )
             }
-            /*composable(AdminRoutes.Pedidos){
+            composable(AdminRoutes.Pedidos){
                 Pedidos(mainViewModel,pedidosViewModel,{
                     pedidosViewModel.setSelectedPedido(it)
                     navController.navigate(AdminRoutes.Pedido) {
@@ -236,7 +236,7 @@ fun MainAdministrador(
 
                     }
                 })
-            }*/
+            }
             composable (AdminRoutes.Pedido){
                 PedidoForm(
                     pedidosViewModel,{

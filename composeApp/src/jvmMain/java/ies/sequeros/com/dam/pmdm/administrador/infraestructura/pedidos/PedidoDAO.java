@@ -101,10 +101,10 @@ public class PedidoDAO implements IDao<Pedido> {
         try {
             final PreparedStatement pst = conn.getConnection().prepareStatement(update);
             pst.setString(1, item.getClientName());
-            pst.setInt(2, item.getProductNumber());
+            pst.setInt(2, item.getProductNumbers());
             pst.setInt(3, item.getPendingProducts());
             pst.setFloat(4, item.getTotalPrice());
-            pst.setInt(5, item.getDate());
+            pst.setInt(5, item.getDat3());
             pst.setString(6, item.getId_dependiente());
             pst.setString(6, item.getId());
             pst.executeUpdate();
@@ -113,10 +113,10 @@ public class PedidoDAO implements IDao<Pedido> {
             logger.info(() ->
                     "Ejecutando SQL: " + update +
                             " | Params: [1]=" + item.getClientName() +
-                            ", [2]=" + item.getProductNumber() +
+                            ", [2]=" + item.getProductNumbers() +
                             ", [3]=" + item.getPendingProducts() +
                             ", [4]=" + item.getTotalPrice() +
-                            ", [5]=" + item.getDate() +
+                            ", [5]=" + item.getDat3() +
                             ", [6]=" + item.getId_dependiente() +
                             ", [7]=" + item.getId() +
                             "]"
@@ -147,10 +147,10 @@ public class PedidoDAO implements IDao<Pedido> {
             pst = conn.getConnection().prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, item.getId());
             pst.setString(2, item.getClientName());
-            pst.setInt(3, item.getProductNumber());
+            pst.setInt(3, item.getProductNumbers());
             pst.setInt(4, item.getPendingProducts());
             pst.setFloat(5, item.getTotalPrice());
-            pst.setInt(6, item.getDate());
+            pst.setInt(6, item.getDat3());
             pst.setString(7, item.getId_dependiente());
             pst.executeUpdate();
             pst.close();
@@ -159,10 +159,10 @@ public class PedidoDAO implements IDao<Pedido> {
                     "Ejecutando SQL: " + insert +
                             " | Params: [1]=" + item.getId() +
                             ", [2]="+ item.getClientName() +
-                            ", [3]=" + item.getProductNumber() +
+                            ", [3]=" + item.getProductNumbers() +
                             ", [4]=" + item.getPendingProducts() +
                             ", [5]=" + item.getTotalPrice() +
-                            ", [6]=" + item.getDate() +
+                            ", [6]=" + item.getDat3() +
                             ", [7]=" + item.getId_dependiente() +
                             "]"
             );
@@ -177,7 +177,7 @@ public class PedidoDAO implements IDao<Pedido> {
             pd = new Pedido(
                     r.getString("ID"),
                     r.getString("CLIENTNAME"),
-                    r.getInt("PRODUCTNUMBER"),
+                    r.getInt("PRODUCTNUMBERS"),
                     r.getInt("PENDINGPRODUCTS"),
                     r.getFloat("TOTALPRICE"),
                     r.getInt("DATE"),

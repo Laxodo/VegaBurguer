@@ -12,7 +12,7 @@ class ListarDependientesUseCase(private val repositorio: IDependienteRepositorio
     suspend fun invoke( ): List<DependienteDTO> {
         //this.validateUser(user)
         //si tiene imagen
-        val items= repositorio.getAll().map { it.toDTO(if(it.imagePath.isEmpty()) "" else almacenDatos.getAppDataDir()+"/dependientes/") }
+        val items= repositorio.getAll().map { it.toDTO(if(it.imgPath.isEmpty()) "" else almacenDatos.getAppDataDir()+"/dependientes/") }
         return items
     }
 }

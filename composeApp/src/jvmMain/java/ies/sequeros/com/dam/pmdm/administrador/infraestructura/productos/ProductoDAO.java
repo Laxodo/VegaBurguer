@@ -21,8 +21,8 @@ public class ProductoDAO implements IDao<Producto> {
     private final String selectbyid = "select * from " + table_name + " where id = '?'";
     private final String findbyname = "select * from " + table_name + " where name = '?'";
     private final String deletebyid = "delete from " + table_name + " where id = '?'";
-    private final String insert = "INSERT INTO " + table_name + " (id + name + description + imgPath + enabled + precio + id_categoria) " + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private final String update = "UPDATE " + table_name + " SET name = ?, description = ?, imgPath = ?, enabled = ?, precio = ?, id_categoria = ?" + " WHERE id = ?";
+    private final String insert = "INSERT INTO " + table_name + " (id + name + description + price + imgPath + enabled + id_categoria) " + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private final String update = "UPDATE " + table_name + " SET name = ?, description = ?, price = ?, imgPath = ?, enabled = ?, id_categoria = ?" + " WHERE id = ?";
     public ProductoDAO() {
     }
 
@@ -104,9 +104,9 @@ public class ProductoDAO implements IDao<Producto> {
             final PreparedStatement pst = conn.getConnection().prepareStatement(update);
             pst.setString(1, item.getName());
             pst.setString(2, item.getDescription());
-            pst.setString(3, item.getImagePath());
-            pst.setBoolean(4, item.getEnabled());
-            pst.setFloat(5, item.getPrice());
+            pst.setFloat(3, item.getPrice());
+            pst.setString(4, item.getImgPath());
+            pst.setBoolean(5, item.getEnabled());
             pst.setString(6, item.getId_categoria());
             pst.setString(7, item.getId());
             pst.executeUpdate();
@@ -116,9 +116,9 @@ public class ProductoDAO implements IDao<Producto> {
                     "Ejecutando SQL: " + update +
                             " | Params: [1]=" + item.getName() +
                             ", [2]="+ item.getDescription() +
-                            ", [3]=" + item.getImagePath() +
-                            ", [4]=" + item.getEnabled() +
-                            ", [5]=" + item.getPrice() +
+                            ", [3]=" + item.getPrice() +
+                            ", [4]=" + item.getImgPath() +
+                            ", [5]=" + item.getEnabled() +
                             ", [6]=" + item.getId_categoria() +
                             ", [7]=" + item.getId() +
                             "]"
@@ -150,9 +150,9 @@ public class ProductoDAO implements IDao<Producto> {
             pst.setString(1, item.getId());
             pst.setString(2, item.getName());
             pst.setString(3, item.getDescription());
-            pst.setString(4, item.getImagePath());
-            pst.setBoolean(5, item.getEnabled());
-            pst.setFloat(6, item.getPrice());
+            pst.setFloat(4, item.getPrice());
+            pst.setString(5, item.getImgPath());
+            pst.setBoolean(6, item.getEnabled());
             pst.setString(7, item.getId_categoria());
             pst.executeUpdate();
             pst.close();
@@ -162,9 +162,9 @@ public class ProductoDAO implements IDao<Producto> {
                             " | Params: [1]=" + item.getId() +
                             ", [2]="+ item.getName() +
                             ", [3]=" + item.getDescription() +
-                            ", [4]=" + item.getImagePath() +
-                            ", [5]=" + item.getEnabled() +
-                            ", [6]=" + item.getPrice() +
+                            ", [4]=" + item.getPrice() +
+                            ", [5]=" + item.getImgPath() +
+                            ", [6]=" + item.getEnabled() +
                             ", [7]=" + item.getId_categoria() +
                             "]"
             );
@@ -180,10 +180,10 @@ public class ProductoDAO implements IDao<Producto> {
                     r.getString("ID"),
                     r.getString("NAME"),
                     r.getString("DESCRIPTION"),
-                    r.getString("IMAGE_PATH"),
+                    r.getFloat("PRICE"),
+                    r.getString("IMG_PATH"),
                     r.getBoolean("ENABLED"),
-                    r.getFloat("PRECIO"),
-                    r.getString("ID_Categoria"));
+                    r.getString("ID_CATEGORIA"));
             return pd;
         } catch (final SQLException ex) {
             Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, ex);

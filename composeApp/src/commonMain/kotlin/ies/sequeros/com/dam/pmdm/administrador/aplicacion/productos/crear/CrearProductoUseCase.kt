@@ -22,7 +22,7 @@ class CrearProductoUseCase(private val repositorio: IProductoRepositorio, privat
             id = id,
             name = createProductoCommand.name,
             description = createProductoCommand.description,
-            imagePath = imageName,
+            imgPath = imageName,
             enabled = createProductoCommand.enabled,
             price = createProductoCommand.price,
             id_categoria = createProductoCommand.id_categoria

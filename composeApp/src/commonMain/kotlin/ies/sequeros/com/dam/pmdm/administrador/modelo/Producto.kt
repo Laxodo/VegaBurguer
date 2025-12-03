@@ -7,9 +7,9 @@ data class Producto (
     var id: String,
     val name: String,
     val description: String,
-    val imagePath: String,
-    val enabled: Boolean,
     val price: Float,
+    val imgPath: String,
+    val enabled: Boolean,
     val id_categoria: String
 )
 

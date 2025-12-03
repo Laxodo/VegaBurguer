@@ -22,8 +22,8 @@ public class DependienteDao implements IDao<Dependiente> {
     private final String findbyname = "select * from " + table_name + " where name=?";
 
     private final String deletebyid = "delete from " + table_name + " where id='?'";
-    private final String insert = "INSERT INTO " + table_name + " (id, name, email, password, image_path, enabled, isAdmin) " + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private final String update = "UPDATE " + table_name + " SET name = ?, email = ?, password = ?, image_path = ?, enabled = ?, isAdmin = ? " + "WHERE id = ?";
+    private final String insert = "INSERT INTO " + table_name + " (id, name, email, password, imgPath, enabled, isAdmin) " + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private final String update = "UPDATE " + table_name + " SET name = ?, email = ?, password = ?, imgPath = ?, enabled = ?, isAdmin = ? " + "WHERE id = ?";
     public DependienteDao() {
     }
 
@@ -109,7 +109,7 @@ public class DependienteDao implements IDao<Dependiente> {
             pst.setString(1, item.getName());
             pst.setString(2, item.getEmail());
             pst.setString(3, item.getPassword());
-            pst.setString(4, item.getImagePath());
+            pst.setString(4, item.getImgPath());
             pst.setBoolean(5, item.getEnabled());
             pst.setBoolean(6, item.isAdmin());
             pst.setString(7, item.getId());
@@ -121,7 +121,7 @@ public class DependienteDao implements IDao<Dependiente> {
                             " | Params: [1]=" + item.getName() +
                             ", [2]=" + item.getEmail() +
                             ", [3]=" + item.getPassword() +
-                            ", [4]=" + item.getImagePath() +
+                            ", [4]=" + item.getImgPath() +
                             ", [5]=" + item.getEnabled() +
                             ", [6]=" + item.isAdmin() +
                             ", [7]=" + item.getId() +
@@ -159,7 +159,7 @@ public class DependienteDao implements IDao<Dependiente> {
             pst.setString(2, item.getName());
             pst.setString(3, item.getEmail());
             pst.setString(4, item.getPassword());
-            pst.setString(5,item.getImagePath());
+            pst.setString(5,item.getImgPath());
             pst.setBoolean(6, item.getEnabled());
             pst.setBoolean(7, item.isAdmin());
 
@@ -172,7 +172,7 @@ public class DependienteDao implements IDao<Dependiente> {
                             ", [2]="+ item.getName() +
                             ", [3]=" + item.getEmail() +
                             ", [4]=" + item.getPassword() +
-                            ", [5]=" + item.getImagePath() +
+                            ", [5]=" + item.getImgPath() +
                             ", [6]=" + item.getEnabled() +
                             ", [7]=" + item.isAdmin() +
                             "]"
@@ -191,9 +191,9 @@ public class DependienteDao implements IDao<Dependiente> {
                     r.getString("NAME"),
                     r.getString("EMAIL"),
                     r.getString("PASSWORD"),
-                    r.getString("IMAGE_PATH"),
+                    r.getString("IMGPATH"),
                     r.getBoolean("ENABLED"),
-                    r.getBoolean("IS_ADMIN"));
+                    r.getBoolean("ISADMIN"));
             return sc;
         } catch (final SQLException ex) {
             Logger.getLogger(DependienteDao.class.getName()).log(Level.SEVERE, null, ex);

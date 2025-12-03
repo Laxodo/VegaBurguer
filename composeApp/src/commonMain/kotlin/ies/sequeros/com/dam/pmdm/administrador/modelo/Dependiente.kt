@@ -6,7 +6,7 @@ data class Dependiente(
     val name:String,
     val email:String,
     val password:String,
-    val imagePath:String,
+    val imgPath:String,
     val enabled: Boolean,
     val isAdmin:Boolean
 )

@@ -5,17 +5,17 @@ import ies.sequeros.com.dam.pmdm.administrador.modelo.Pedido
 fun Pedido.toDTO() = PedidoDTO(
     id = id,
     clientName = clientName,
-    productNumber = productNumber,
+    productNumber = productNumbers,
     pendingProducts = pendingProducts,
     totalPrice = totalPrice,
-    date = date
+    date = dat3
 )
 fun PedidoDTO.toPedido(id_dependiente: String)= Pedido(
     id = id,
     clientName = clientName,
-    productNumber = productNumber,
+    productNumbers = productNumber,
     pendingProducts = pendingProducts,
     totalPrice = totalPrice,
-    date = date,
+    dat3 = date,
     id_dependiente = id_dependiente
 )

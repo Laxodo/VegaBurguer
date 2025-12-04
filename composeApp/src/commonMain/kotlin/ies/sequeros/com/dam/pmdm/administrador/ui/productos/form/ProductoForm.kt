@@ -192,7 +192,7 @@ fun ProductoForm(
             }
 
             //  Selector de avatar
-            Text("Selecciona un avatar:", style = MaterialTheme.typography.titleSmall)
+            Text("Selecciona una imagen:", style = MaterialTheme.typography.titleSmall)
 
             HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
             val scope = rememberCoroutineScope()

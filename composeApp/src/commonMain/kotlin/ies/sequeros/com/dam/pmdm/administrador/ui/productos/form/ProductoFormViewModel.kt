@@ -12,17 +12,19 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class ProductoFormViewModel (private val item: ProductoDTO?,
-                             onSuccess: (ProductoFormState) -> Unit): ViewModel() {
+class ProductoFormViewModel (
+    private val item: ProductoDTO?,
+    onSuccess: (ProductoFormState) -> Unit
+): ViewModel() {
 
     private val _uiState = MutableStateFlow(ProductoFormState(
         nombre = item?.name ?: "",
         descripcion = item?.description ?: "",
         imagePath = item?.imagePath?:"",
         enabled = item?.enabled?:false,
-        price = item?.price?:0.0f
-
+        price = item?.price ?: 0.0f
     ))
+
     val uiState: StateFlow<ProductoFormState> = _uiState.asStateFlow()
 
     //para saber si el formulario es válido
@@ -52,10 +54,10 @@ class ProductoFormViewModel (private val item: ProductoDTO?,
         _uiState.value = _uiState.value.copy(nombre = v, nombreError = validateNombre(v))
     }
     fun onDescripcionChange(v: String) {
-        _uiState.value = _uiState.value.copy(nombre = v, descripcionError = validateDescripcion(v))
+        _uiState.value = _uiState.value.copy(descripcion = v, descripcionError = validateDescripcion(v))
     }
     fun onPriceChange(v: String) {
-        _uiState.value = _uiState.value.copy(nombre = v, priceError = validatePrice(v))
+        _uiState.value = _uiState.value.copy(price = v.toFloat(), priceError = validatePrice(v))
     }
     fun onImagePathChange(v: String) {
         _uiState.value = _uiState.value.copy(imagePath =  v, imagePathError =  validateImagePath(v))

@@ -106,7 +106,6 @@ class ProductosViewModel(
             }catch (e:Exception){
                 throw  e
             }
-
         }
     }
 

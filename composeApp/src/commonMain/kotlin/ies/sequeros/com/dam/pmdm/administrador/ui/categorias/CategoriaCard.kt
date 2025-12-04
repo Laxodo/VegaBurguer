@@ -196,11 +196,6 @@ fun CategoriaCard(
                     Icon(Icons.Default.Edit, contentDescription = "Editar")
                 }
 
-                // profe ejemplo
-                OutlinedIconButton(onClick = { onPasswordChange(item) }) {
-                    Icon(Icons.Default.Password, contentDescription = "Editar")
-                }
-
                 // Eliminar
                 OutlinedIconButton(
                     onClick = { onDelete(item) },

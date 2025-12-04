@@ -42,6 +42,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.window.core.layout.WindowWidthSizeClass
 import ies.sequeros.com.dam.pmdm.AppViewModel
 import ies.sequeros.com.dam.pmdm.administrador.AdministradorViewModel
+import ies.sequeros.com.dam.pmdm.administrador.aplicacion.categorias.listar.ListarCategoriaUseCase
 
 import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.Dependientes
 import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.DependientesViewModel
@@ -65,6 +66,7 @@ import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.form.PedidoForm
 fun MainAdministrador(
     appViewModel: AppViewModel,
     mainViewModel: MainAdministradorViewModel,
+    listarCategoriaUseCase: ListarCategoriaUseCase,
     administradorViewModel: AdministradorViewModel,
     dependientesViewModel: DependientesViewModel,
     categoriasViewModel: CategoriaViewModel,
@@ -220,7 +222,7 @@ fun MainAdministrador(
             }
             composable (AdminRoutes.Producto){
                 ProductoForm(
-                    productosViewModel,{
+                    productosViewModel,categoriasViewModel,{
                         navController.popBackStack()
                     },{
                         productosViewModel.save(it)

@@ -49,6 +49,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.CategoriaViewModel
 
 import ies.sequeros.com.dam.pmdm.administrador.ui.productos.ProductosViewModel
 import ies.sequeros.com.dam.pmdm.commons.ui.ImagenDesdePath
@@ -62,17 +63,20 @@ import vegaburguer.composeapp.generated.resources.hombre
 fun ProductoForm(
     //appViewModel: AppViewModel,
     productoViewModel: ProductosViewModel,
+    categoriaViewModel: CategoriaViewModel,
     onClose: () -> Unit,
     onConfirm: (datos: ProductoFormState) -> Unit = {},
     productoFormularioViewModel: ProductoFormViewModel = viewModel {
         ProductoFormViewModel(
-            productoViewModel.selected.value, onConfirm
+            productoViewModel.selected.value ,onConfirm
         )
     }
 ) {
     val state by productoFormularioViewModel.uiState.collectAsState()
     val formValid by productoFormularioViewModel.isFormValid.collectAsState()
     val selected = productoViewModel.selected.collectAsState()
+    val categorias = categoriaViewModel.items.collectAsState()//mutableListOf<CategoriaDTO>()
+    val selectedCategory = remember { mutableStateOf(null) }
     val imagePath =
         remember { mutableStateOf(if (state.imagePath != null && state.imagePath.isNotEmpty()) state.imagePath else "") }
 
@@ -169,6 +173,12 @@ fun ProductoForm(
                     color = MaterialTheme.colorScheme.error
                 )
             }
+
+            CategoriasComboBox(
+                categorias = categorias.value,
+                current = selectedCategory.value,
+                onSelect = {  }
+            )
 
             // Checkboxes
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {

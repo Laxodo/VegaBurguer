@@ -96,6 +96,9 @@ fun App(
                     navController.popBackStack()
                 })
             }
+            composable(AppRoutes.TPV){
+
+            }
 
         }
     }

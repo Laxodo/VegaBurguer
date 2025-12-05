@@ -110,7 +110,9 @@ fun Categoria(
                             enabled = !it.enabled
                         )
                         categoriaViewModel.switchEnableCategoria(element)
-                    },{},{
+                    },{
+
+                    },{
                         onSelectItem(it);
 
                     },{

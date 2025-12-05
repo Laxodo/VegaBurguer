@@ -177,7 +177,7 @@ fun ProductoForm(
             CategoriasComboBox(
                 categorias = categorias.value,
                 current = selectedCategory.value,
-                onSelect = {  }
+                onSelect = { productoFormularioViewModel.onCategoryChange(it.id) }
             )
 
             // Checkboxes

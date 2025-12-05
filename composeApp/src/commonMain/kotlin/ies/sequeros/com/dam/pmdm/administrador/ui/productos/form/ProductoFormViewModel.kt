@@ -22,7 +22,8 @@ class ProductoFormViewModel (
         descripcion = item?.description ?: "",
         imagePath = item?.imagePath?:"",
         enabled = item?.enabled?:false,
-        price = item?.price ?: 0.0f
+        price = item?.price ?: 0.0f,
+        id_categoria = item?.categoria ?: ""
     ))
 
     val uiState: StateFlow<ProductoFormState> = _uiState.asStateFlow()
@@ -61,6 +62,10 @@ class ProductoFormViewModel (
     }
     fun onImagePathChange(v: String) {
         _uiState.value = _uiState.value.copy(imagePath =  v, imagePathError =  validateImagePath(v))
+    }
+
+    fun onCategoryChange(v: String) {
+        _uiState.value = _uiState.value.copy(id_categoria =  v)
     }
 
     fun onEnabledChange(v: Boolean) {

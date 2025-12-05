@@ -82,7 +82,7 @@ class ProductosViewModel(
 
     fun delete(item: ProductoDTO) {
         viewModelScope.launch {
-          //  borrarProductoUseCase.invoke(item.id)
+            borrarProductosUseCase.invoke(item.id)
             _items.update { current ->
                 current.filterNot { it.id == item.id }.toMutableList()
             }

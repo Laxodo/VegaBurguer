@@ -76,7 +76,6 @@ fun ProductoForm(
     val formValid by productoFormularioViewModel.isFormValid.collectAsState()
     val selected = productoViewModel.selected.collectAsState()
     val categorias = categoriaViewModel.items.collectAsState()//mutableListOf<CategoriaDTO>()
-    val selectedCategory = remember { mutableStateOf(null) }
     val imagePath =
         remember { mutableStateOf(if (state.imagePath != null && state.imagePath.isNotEmpty()) state.imagePath else "") }
 

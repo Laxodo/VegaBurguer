@@ -91,7 +91,7 @@ class CategoriaViewModel(
         viewModelScope.launch {
             try {
                 val categoria = crearCategoriaUseCase.invoke(command)
-                _items.value = (_items.value - categoria) as MutableList<CategoriaDTO>
+                _items.value = (_items.value + categoria) as MutableList<CategoriaDTO>
             } catch (e: Exception) {
                 throw e
             }

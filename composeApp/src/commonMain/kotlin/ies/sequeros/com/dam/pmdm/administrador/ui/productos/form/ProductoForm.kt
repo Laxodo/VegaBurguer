@@ -173,10 +173,17 @@ fun ProductoForm(
                     color = MaterialTheme.colorScheme.error
                 )
             }
-
+            val current=categorias.value.firstOrNull(
+                {
+                    productoFormularioViewModel.uiState.value.id_categoria == it.name
+                }
+            )
+            if(current!=null){
+                productoFormularioViewModel.onCategoryChange(current.id)
+            }
             CategoriasComboBox(
                 categorias = categorias.value,
-                current = selectedCategory.value,
+                current = current,
                 onSelect = { productoFormularioViewModel.onCategoryChange(it.id) }
             )
 

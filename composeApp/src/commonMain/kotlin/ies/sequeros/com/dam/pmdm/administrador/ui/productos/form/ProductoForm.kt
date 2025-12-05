@@ -76,7 +76,6 @@ fun ProductoForm(
     val formValid by productoFormularioViewModel.isFormValid.collectAsState()
     val selected = productoViewModel.selected.collectAsState()
     val categorias = categoriaViewModel.items.collectAsState()//mutableListOf<CategoriaDTO>()
-    val selectedCategory = remember { mutableStateOf(null) }
     val imagePath =
         remember { mutableStateOf(if (state.imagePath != null && state.imagePath.isNotEmpty()) state.imagePath else "") }
 
@@ -173,10 +172,17 @@ fun ProductoForm(
                     color = MaterialTheme.colorScheme.error
                 )
             }
-
+            val current=categorias.value.firstOrNull(
+                {
+                    productoFormularioViewModel.uiState.value.id_categoria == it.name
+                }
+            )
+            if(current!=null){
+                productoFormularioViewModel.onCategoryChange(current.id)
+            }
             CategoriasComboBox(
                 categorias = categorias.value,
-                current = selectedCategory.value,
+                current = current,
                 onSelect = { productoFormularioViewModel.onCategoryChange(it.id) }
             )
 

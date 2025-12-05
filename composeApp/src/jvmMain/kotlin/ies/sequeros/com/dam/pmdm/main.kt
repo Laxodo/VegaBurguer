@@ -21,6 +21,7 @@ import java.util.logging.LogManager
 fun main() = application {
     var connection = DataBaseConnection()
     connection.setConfig_path("./app.properties")
+    connection.open()
     val dependienteRepositorioJava=BBDDRepositorioDependientesJava(connection)
     val categoriaRepositorioJava= BBDDRepositorioCategoriasJava(connection)
     val productoRepositorioJava= BBDDRepositorioProductosJava(connection)

@@ -13,7 +13,7 @@ class ListarProductoUseCase(private val repositorio: IProductoRepositorio, priva
         //this.validateUser(user)
         //si tiene imagen
         val items= repositorio.getAll().map { it.toDTO(
-            if(it.imagePath.isEmpty()) "" else almacenDatos.getAppDataDir()+"/productos/",
+            if(it.imgPath.isEmpty()) "" else almacenDatos.getAppDataDir()+"/productos/",
             repositorioCategoria.getById(it.id_categoria)?.name ?: "")
         }
         return items

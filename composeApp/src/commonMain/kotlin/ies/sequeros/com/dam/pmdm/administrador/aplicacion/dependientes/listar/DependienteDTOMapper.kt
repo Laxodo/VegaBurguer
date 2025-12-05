@@ -6,7 +6,7 @@ fun Dependiente.toDTO(path:String="") = DependienteDTO(
     id = id,
     name = name,
     email = email,
-    imagePath=path+imagePath,
+    imagePath=path+imgPath,
     enabled ,
     isAdmin = isAdmin
 )
@@ -15,7 +15,7 @@ fun DependienteDTO.toDependiente()= Dependiente(
     name = name,
     email = email,
     password = "",
-    imagePath=imagePath,
+    imgPath =imagePath,
 
     enabled ,
     isAdmin = isAdmin

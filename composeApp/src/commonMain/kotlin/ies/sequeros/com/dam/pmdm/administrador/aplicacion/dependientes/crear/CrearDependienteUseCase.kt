@@ -22,7 +22,7 @@ class CrearDependienteUseCase(private val repositorio: IDependienteRepositorio,p
             id = id,
             name = createUserCommand.name,
             email = createUserCommand.email,
-            imagePath = imageName,
+            imgPath = imageName,
             password = createUserCommand.password,
             enabled = createUserCommand.enabled,
             isAdmin = createUserCommand.admin

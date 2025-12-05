@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 data class Pedido (
     var id: String,
     val clientName: String,
-    val productNumber: Int,
+    val productNumbers: Int,
     val pendingProducts: Int,
     val totalPrice: Float,
-    val date: Int,
+    val dat3: Int,
     val id_dependiente: String
 )

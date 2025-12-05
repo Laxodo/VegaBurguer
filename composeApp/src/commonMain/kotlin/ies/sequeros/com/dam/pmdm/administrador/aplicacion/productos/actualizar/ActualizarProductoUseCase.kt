@@ -28,14 +28,14 @@ class ActualizarProductoUseCase(private val repositorio: IProductoRepositorio,
             almacenDatos.remove(itemDTO.imagePath)
             nuevaImagePath=almacenDatos.copy(command.imagePath,command.id,"/productos/")
         }else{
-            nuevaImagePath=item.imagePath
+            nuevaImagePath=item.imgPath
         }
 
         var newProduct= item.copy(
             id = command.id,
             name = command.name,
             description = command.description,
-            imagePath = nuevaImagePath,
+            imgPath = nuevaImagePath,
             enabled = command.enabled,
             price = command.price,
             id_categoria = command.id_categoria

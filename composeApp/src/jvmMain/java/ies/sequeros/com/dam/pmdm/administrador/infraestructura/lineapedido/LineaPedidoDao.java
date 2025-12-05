@@ -21,7 +21,7 @@ public class LineaPedidoDao implements IDao<LineaPedido> {
     private final String selectbyid = "select * from " + table_name + " where id=?";
     private final String findbyname = "select * from " + table_name + " where name=?";
 
-    private final String deletebyid = "delete from " + table_name + " where id='?'";
+    private final String deletebyid = "delete from " + table_name + " where id=?";
     private final String insert = "INSERT INTO " + table_name + " (id, anoumt, total, productPrice, delivered, id_pedido, id_producto) " + "VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final String update = "UPDATE " + table_name + " SET amount = ?, total = ?, productPrice = ?, delivered = ?, id_pedido = ?, id_producto = ? " + "WHERE id = ?";
     public LineaPedidoDao() {

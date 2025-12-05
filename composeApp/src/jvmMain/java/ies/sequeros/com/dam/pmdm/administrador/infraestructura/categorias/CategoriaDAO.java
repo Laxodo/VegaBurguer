@@ -19,7 +19,7 @@ public class CategoriaDAO implements IDao<Categoria> {
     private final String selectall = "select * from " + table_name;
     private final String selectbyid = "select * from " + table_name + " where id = ?";
     private final String findbyname = "select * from " + table_name + " where name = ?";
-    private final String deletebyid = "select * from " + table_name + " where id = '?'";
+    private final String deletebyid = "delete from " + table_name + " where id = ?";
     private final String insert = "INSERT INTO " + table_name + " (id, name, description, imgPath, enabled) " + "VALUES (?, ?, ?, ?, ?)";
     private final String update = "UPDATE " + table_name + " SET name = ? , description = ?, imgPath = ?, enabled = ? " + " WHERE id = ?";
 
@@ -73,6 +73,7 @@ public class CategoriaDAO implements IDao<Categoria> {
         return ct;
     }
 
+    @Override
     public List<Categoria> getAll() {
         final ArrayList<Categoria> ctl = new ArrayList<>();
         Categoria tempo;
@@ -97,6 +98,7 @@ public class CategoriaDAO implements IDao<Categoria> {
         return ctl;
     }
 
+    @Override
     public void update(final Categoria item) {
         try {
             final PreparedStatement pst = conn.getConnection().prepareStatement(update);

@@ -55,7 +55,7 @@ fun ProductoCard(
     item: ProductoDTO,
     onActivate: (item:ProductoDTO) -> Unit,
     onDeactivate: (item:ProductoDTO) -> Unit,
-    onView: () -> Unit,
+    onView: (ProductoDTO) -> Unit,
     onEdit: (ProductoDTO) -> Unit,
     onDelete: (item: ProductoDTO) -> Unit
 ) {
@@ -161,7 +161,7 @@ fun ProductoCard(
                 }
 
                 // Ver detalles
-                OutlinedIconButton(onClick = onView) {
+                OutlinedIconButton(onClick = {onView(item)}) {
                     Icon(Icons.AutoMirrored.Filled.Article, contentDescription = "Ver")
                 }
 

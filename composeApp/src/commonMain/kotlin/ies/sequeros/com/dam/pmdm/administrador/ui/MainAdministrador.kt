@@ -51,6 +51,7 @@ import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.form.DependienteF
 import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.Categoria
 import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.CategoriaViewModel
 import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.form.CategoriaForm
+import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.formChangePassword.PasswordForm
 
 import ies.sequeros.com.dam.pmdm.administrador.ui.productos.Productos
 import ies.sequeros.com.dam.pmdm.administrador.ui.productos.ProductosViewModel
@@ -178,9 +179,18 @@ fun MainAdministrador(
                     dependientesViewModel.setSelectedDependiente(it)
                     navController.navigate(AdminRoutes.Dependiente) {
                         launchSingleTop = true
-
                     }
-                })
+                },{
+                    dependientesViewModel.setSelectedDependiente(it)
+                    navController.navigate(AdminRoutes.DependienteData) {
+                        launchSingleTop = true
+                    }
+                },{
+                        dependientesViewModel.setSelectedDependiente(it)
+                        navController.navigate(AdminRoutes.DependientePasswd) {
+                            launchSingleTop = true
+                        }
+                    })
             }
             composable (AdminRoutes.Dependiente){
                 DependienteForm(
@@ -192,12 +202,35 @@ fun MainAdministrador(
                     }
                 )
             }
+            composable(AdminRoutes.DependientePasswd){
+                PasswordForm(
+                    dependientesViewModel, {
+                        navController.popBackStack()
+                    },{
+                        //dependientesViewModel.save(it)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(AdminRoutes.DependienteData){
+                DependienteForm(
+                    dependientesViewModel, {
+                        navController.popBackStack()
+                    },{
+                        navController.popBackStack()
+                    }
+                )
+            }
             composable(AdminRoutes.Categorias){
                 Categoria(mainViewModel,categoriasViewModel,{
                     categoriasViewModel.setSelectedCategoria(it)
                     navController.navigate(AdminRoutes.Categoria) {
                         launchSingleTop = true
-
+                    }
+                },{
+                    categoriasViewModel.setSelectedCategoria(it)
+                    navController.navigate(AdminRoutes.CategoriaData) {
+                        launchSingleTop = true
                     }
                 })
             }
@@ -211,12 +244,25 @@ fun MainAdministrador(
                     }
                 )
             }
+            composable (AdminRoutes.CategoriaData){
+                CategoriaForm(
+                    categoriasViewModel,{
+                        navController.popBackStack()
+                    },{
+                        navController.popBackStack()
+                    }
+                )
+            }
             composable(AdminRoutes.Productos){
                 Productos(mainViewModel,productosViewModel,{
                     productosViewModel.setSelectedProducto(it)
                     navController.navigate(AdminRoutes.Producto) {
                         launchSingleTop = true
-
+                    }
+                },{
+                    productosViewModel.setSelectedProducto(it)
+                    navController.navigate(AdminRoutes.ProductoData) {
+                        launchSingleTop = true
                     }
                 })
             }
@@ -230,12 +276,20 @@ fun MainAdministrador(
                     }
                 )
             }
+            composable (AdminRoutes.ProductoData){
+                ProductoForm(
+                    productosViewModel,categoriasViewModel,{
+                        navController.popBackStack()
+                    },{
+                        navController.popBackStack()
+                    }
+                )
+            }
             composable(AdminRoutes.Pedidos){
                 Pedidos(mainViewModel,pedidosViewModel,{
                     pedidosViewModel.setSelectedPedido(it)
                     navController.navigate(AdminRoutes.Pedido) {
                         launchSingleTop = true
-
                     }
                 })
             }

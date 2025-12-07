@@ -58,7 +58,7 @@ fun DependienteCard(
     item: DependienteDTO,
     onActivate: (item:DependienteDTO) -> Unit,
     onDeactivate: (item:DependienteDTO) -> Unit,
-    onView: () -> Unit,
+    onView: (DependienteDTO) -> Unit,
     onEdit: (DependienteDTO) -> Unit,
     onDelete: (item: DependienteDTO) -> Unit,
     onChangeAdmin: (item:DependienteDTO) -> Unit,
@@ -201,7 +201,7 @@ fun DependienteCard(
                 }
 
                 // Ver detalles
-                OutlinedIconButton(onClick = onView) {
+                OutlinedIconButton(onClick = { onView(item) }) {
                     Icon(Icons.AutoMirrored.Filled.Article, contentDescription = "Ver")
                 }
 

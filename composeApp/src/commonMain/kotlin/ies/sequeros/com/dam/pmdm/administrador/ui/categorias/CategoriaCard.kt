@@ -58,7 +58,7 @@ fun CategoriaCard(
     item: CategoriaDTO,
     onActivate: (item:CategoriaDTO) -> Unit,
     onDeactivate: (item:CategoriaDTO) -> Unit,
-    onView: () -> Unit,
+    onView: (CategoriaDTO) -> Unit,
     onEdit: (CategoriaDTO) -> Unit,
     onDelete: (item: CategoriaDTO) -> Unit,
     onPasswordChange: (item: CategoriaDTO) -> Unit
@@ -184,7 +184,7 @@ fun CategoriaCard(
                 }
 
                 // Ver detalles
-                OutlinedIconButton(onClick = onView) {
+                OutlinedIconButton(onClick = {onView(item)}) {
                     Icon(Icons.AutoMirrored.Filled.Article, contentDescription = "Ver")
                 }
 

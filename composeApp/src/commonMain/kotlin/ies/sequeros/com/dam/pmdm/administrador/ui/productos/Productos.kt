@@ -39,7 +39,8 @@ import ies.sequeros.com.dam.pmdm.administrador.ui.MainAdministradorViewModel
 fun Productos(
     mainAdministradorViewModel: MainAdministradorViewModel,
     productosViewModel: ProductosViewModel,
-    onSelectItem:(ProductoDTO?)->Unit
+    onSelectItem:(ProductoDTO?)->Unit,
+    onView:(ProductoDTO?)->Unit
 ){
     val items by productosViewModel.items.collectAsState()
     var searchText by remember { mutableStateOf("")}
@@ -109,7 +110,9 @@ fun Productos(
                             enabled = !it.enabled
                         )
                         productosViewModel.switchEnableProducto(element)
-                    },{},{
+                    },{
+                        onView(it)
+                    },{
                         onSelectItem(it);
 
                     },{

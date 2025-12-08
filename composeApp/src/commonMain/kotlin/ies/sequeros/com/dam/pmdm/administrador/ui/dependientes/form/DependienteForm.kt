@@ -75,8 +75,7 @@ fun DependienteForm(
     var passwordVisible by remember { mutableStateOf(false) }
     var confirmPasswordVisible by remember { mutableStateOf(false) }
     val selected = dependienteViewModel.selected.collectAsState()
-    val imagePath =
-        remember { mutableStateOf(if (state.imagePath != null && state.imagePath.isNotEmpty()) state.imagePath else "") }
+    val imagePath = remember { mutableStateOf(if (state.imagePath != null && state.imagePath.isNotEmpty()) state.imagePath else "") }
 
     //val names = CartoonString.getNames() - "default"
 

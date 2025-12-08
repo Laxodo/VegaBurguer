@@ -178,6 +178,9 @@ fun PasswordForm(
                         color = MaterialTheme.colorScheme.error
                     )
                 }
+
+            HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
+
             // Checkboxes
             //  Botones
             Row(

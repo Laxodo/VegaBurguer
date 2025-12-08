@@ -38,6 +38,7 @@ import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.DependientesViewM
 import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.CategoriaViewModel
 import ies.sequeros.com.dam.pmdm.administrador.ui.productos.ProductosViewModel
 import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.PedidosViewModel
+import ies.sequeros.com.dam.pmdm.tpv.ui.MainTPV
 
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -85,7 +86,7 @@ fun App(
             composable(AppRoutes.Main) {
                 Principal({
                     navController.navigate(AppRoutes.Administrador)
-                },{},{})
+                },{},{navController.navigate(AppRoutes.TPV)})
             }
             composable (AppRoutes.Administrador){
                 MainAdministrador(appViewModel,mainViewModel,listarCategoriaUseCase, administradorViewModel,
@@ -97,7 +98,7 @@ fun App(
                 })
             }
             composable(AppRoutes.TPV){
-
+                MainTPV({})
             }
 
         }

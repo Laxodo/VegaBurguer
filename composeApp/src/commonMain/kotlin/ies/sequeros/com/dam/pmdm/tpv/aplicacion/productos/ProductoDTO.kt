@@ -1,6 +1,6 @@
 package ies.sequeros.com.dam.pmdm.tpv.aplicacion.productos
 
-class ProductoDTO (
+data class ProductoDTO (
     val id: String,
     val name: String,
     val description: String,

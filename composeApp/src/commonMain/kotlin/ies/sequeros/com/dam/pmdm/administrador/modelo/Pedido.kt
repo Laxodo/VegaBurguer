@@ -9,6 +9,6 @@ data class Pedido (
     val productNumbers: Int,
     val pendingProducts: Int,
     val totalPrice: Float,
-    val dat3: Int,
+    val dat3: String,
     val id_dependiente: String
 )

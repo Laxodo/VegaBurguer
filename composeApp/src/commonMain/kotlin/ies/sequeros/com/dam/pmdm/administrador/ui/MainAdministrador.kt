@@ -291,9 +291,23 @@ fun MainAdministrador(
                     navController.navigate(AdminRoutes.Pedido) {
                         launchSingleTop = true
                     }
+                }, {
+                    pedidosViewModel.setSelectedPedido(it)
+                    navController.navigate(AdminRoutes.PedidoData) {
+                        launchSingleTop = true
+                    }
                 })
             }
             composable (AdminRoutes.Pedido){
+                PedidoForm(
+                    pedidosViewModel,{
+                        navController.popBackStack()
+                    },{
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable (AdminRoutes.PedidoData) {
                 PedidoForm(
                     pedidosViewModel,{
                         navController.popBackStack()

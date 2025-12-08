@@ -53,7 +53,7 @@ import vegaburguer.composeapp.generated.resources.hombre
 @Composable
 fun PedidoCard(
     item: PedidoDTO,
-    onView: () -> Unit
+    onView: (PedidoDTO) -> Unit
 ) {
     val cardAlpha by animateFloatAsState( 1f)
     val borderColor = MaterialTheme.colorScheme.secondary
@@ -101,7 +101,7 @@ fun PedidoCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Ver detalles
-                OutlinedIconButton(onClick = onView) {
+                OutlinedIconButton(onClick = {onView(item)}) {
                     Icon(Icons.AutoMirrored.Filled.Article, contentDescription = "Ver")
                 }
             }

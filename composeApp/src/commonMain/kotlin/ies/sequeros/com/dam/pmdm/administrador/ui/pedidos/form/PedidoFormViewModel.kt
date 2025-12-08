@@ -20,7 +20,7 @@ class PedidoFormViewModel (private val item: PedidoDTO?,
         productNumber = item?.productNumber ?: 0,
         pendingProducts = item?.pendingProducts?: 0,
         totalPrice = item?.totalPrice?: 0.0f,
-        date = item?.date?: 0
+        date = item?.date?: ""
 
     ))
     val uiState: StateFlow<PedidoFormState> = _uiState.asStateFlow()

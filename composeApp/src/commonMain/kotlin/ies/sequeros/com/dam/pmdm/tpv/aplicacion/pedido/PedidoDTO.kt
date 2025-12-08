@@ -6,4 +6,4 @@ data class PedidoDTO(
     val productNumber: Int,
     val pendingProducts: Int,
     val totalPrice: Float,
-    val date: Int)
+    val date: String)

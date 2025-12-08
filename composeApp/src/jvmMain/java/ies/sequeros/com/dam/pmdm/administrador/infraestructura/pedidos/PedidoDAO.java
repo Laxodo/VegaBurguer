@@ -104,7 +104,7 @@ public class PedidoDAO implements IDao<Pedido> {
             pst.setInt(2, item.getProductNumbers());
             pst.setInt(3, item.getPendingProducts());
             pst.setFloat(4, item.getTotalPrice());
-            pst.setInt(5, item.getDat3());
+            pst.setString(5, item.getDat3());
             pst.setString(6, item.getId_dependiente());
             pst.setString(6, item.getId());
             pst.executeUpdate();
@@ -150,7 +150,7 @@ public class PedidoDAO implements IDao<Pedido> {
             pst.setInt(3, item.getProductNumbers());
             pst.setInt(4, item.getPendingProducts());
             pst.setFloat(5, item.getTotalPrice());
-            pst.setInt(6, item.getDat3());
+            pst.setString(6, item.getDat3());
             pst.setString(7, item.getId_dependiente());
             pst.executeUpdate();
             pst.close();
@@ -180,7 +180,7 @@ public class PedidoDAO implements IDao<Pedido> {
                     r.getInt("PRODUCTNUMBERS"),
                     r.getInt("PENDINGPRODUCTS"),
                     r.getFloat("TOTALPRICE"),
-                    r.getInt("DATE"),
+                    r.getString("DAT3"),
                     r.getString("ID_DEPENDIENTE"));
             return pd;
         } catch (final SQLException ex) {

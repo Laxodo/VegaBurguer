@@ -10,6 +10,7 @@ object  AdminRoutes {
     const val CategoriaData="categoriaData"
     const val Pedidos="pedidos"
     const val Pedido="pedido"
+    const val PedidoData="pedidoData"
     const val Dependientes="dependientes"
     const val Dependiente="dependiente"
     const val DependientePasswd="DependientePasswd"

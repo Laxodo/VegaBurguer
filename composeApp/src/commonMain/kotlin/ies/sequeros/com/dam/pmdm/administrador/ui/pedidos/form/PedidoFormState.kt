@@ -8,6 +8,10 @@ data class PedidoFormState(
     val date: String = "",
     // errores (null = sin error)
     val nombreError: String? = null,
+    val productNumberError: String? = null,
+    val pendingProductsError: String? = null,
+    val totalPriceError: String? = null,
+    val dateError: String? = null,
 
     // para controlar si se intentó enviar (mostrar errores globales)
     val submitted: Boolean = false

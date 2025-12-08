@@ -3,6 +3,7 @@ package ies.sequeros.com.dam.pmdm.tpv.ui.login
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ies.sequeros.com.dam.pmdm.administrador.aplicacion.categorias.listar.CategoriaDTO
 import ies.sequeros.com.dam.pmdm.administrador.aplicacion.dependientes.listar.DependienteDTO
 import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.form.DependienteFormState
 import ies.sequeros.com.dam.pmdm.commons.infraestructura.AlmacenDatos
@@ -22,6 +23,14 @@ class TPVLoginFormViewModel(
         nombre = ""
     ))
     val uiState: StateFlow<TPVLoginFormState> = _uiState.asStateFlow()
+
+    val isFormValid: StateFlow<Boolean> = uiState.map { state ->
+        state.nombreErr == null && !state.nombre.isBlank()
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = false
+    )
 
     fun onNombreChange(v: String) {
         _uiState.value = _uiState.value.copy(nombre = v, nombreErr = validateNombre(v))

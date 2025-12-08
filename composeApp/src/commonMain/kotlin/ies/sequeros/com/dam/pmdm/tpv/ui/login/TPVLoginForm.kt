@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,8 +14,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Autorenew
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.ListAlt
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PersonOutline
+import androidx.compose.material.icons.filled.Save
+import androidx.compose.material3.Button
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -30,7 +37,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun TPVLoginForm(
-    onAction:()->Unit = {},
+
+    onAction:(String)->Unit,
+    onClose:()-> Unit,
     tpvLoginFormularioViewModel: TPVLoginFormViewModel = viewModel {
         TPVLoginFormViewModel(
             { }
@@ -38,11 +47,12 @@ fun TPVLoginForm(
     }
 ){
     val state by tpvLoginFormularioViewModel.uiState.collectAsState()
+    val validate by tpvLoginFormularioViewModel.isFormValid.collectAsState()
     val scrollState = rememberScrollState()
 
     Surface(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(16.dp)
             .defaultMinSize(minHeight = 200.dp),
         tonalElevation = 4.dp,
@@ -51,48 +61,72 @@ fun TPVLoginForm(
     ){
         Column(
             modifier = Modifier
+                .fillMaxSize()
                 .padding(24.dp)
                 .verticalScroll(scrollState),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ){
-            Column(
-                modifier = Modifier
-                    .padding(24.dp)
-                    .verticalScroll(scrollState),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ){
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(40.dp)
-                    )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ListAlt,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(40.dp)
+                )
+                Text(
+                    text = "Formulario",
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = state.nombre,
+                onValueChange = { tpvLoginFormularioViewModel.onNombreChange(it) },
+                label = { Text("Nombre completo") },
+                leadingIcon = { Icon(Icons.Default.PersonOutline, contentDescription = null) },
+                isError = state.nombreErr != null,
+                modifier = Modifier.fillMaxWidth()
+            )
+            state.nombreErr?.let {
+                Text(
+                    it,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                FilledTonalButton(onClick = onClose) {
                     Text(
-                        text = "Nombre",
+                        text = "Salir",
                         style = MaterialTheme.typography.headlineSmall,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                 }
-                Spacer(modifier = Modifier.height(8.dp))
 
-                OutlinedTextField(
-                    value = state.nombre,
-                    onValueChange = { tpvLoginFormularioViewModel.onNombreChange(it) },
-                    label = { Text("Nombre completo") },
-                    leadingIcon = { Icon(Icons.Default.PersonOutline, contentDescription = null) },
-                    isError = state.nombreErr != null,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                state.nombreErr?.let {
+                Button(
+                    onClick = { onAction(tpvLoginFormularioViewModel.uiState.value.nombre) },
+                    enabled = validate
+                ) {
                     Text(
-                        it,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.error
+                        text = "Entrar",
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }

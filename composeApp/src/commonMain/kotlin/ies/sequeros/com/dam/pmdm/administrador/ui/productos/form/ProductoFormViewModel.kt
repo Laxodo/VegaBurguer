@@ -22,7 +22,7 @@ class ProductoFormViewModel (
         descripcion = item?.description ?: "",
         imagePath = item?.imagePath?:"",
         enabled = item?.enabled?:false,
-        price = item?.price ?: 0.0f,
+        price = item?.price?.toString() ?: "",
         id_categoria = item?.categoria ?: ""
     ))
 
@@ -58,7 +58,7 @@ class ProductoFormViewModel (
         _uiState.value = _uiState.value.copy(descripcion = v, descripcionError = validateDescripcion(v))
     }
     fun onPriceChange(v: String) {
-        _uiState.value = _uiState.value.copy(price = v.toFloat(), priceError = validatePrice(v))
+        _uiState.value = _uiState.value.copy(price = v, priceError = validatePrice(v))
     }
     fun onImagePathChange(v: String) {
         _uiState.value = _uiState.value.copy(imagePath =  v, imagePathError =  validateImagePath(v))
@@ -90,6 +90,7 @@ class ProductoFormViewModel (
     }
     private fun validatePrice(price: String): String? {
         if (price.isBlank()) return "El precio es obligatorio"
+        if (price.toFloatOrNull() == null) return "Formato de precio no valido"
         return null
     }
     private fun validateImagePath(path: String): String? {
@@ -101,16 +102,17 @@ class ProductoFormViewModel (
         val s = _uiState.value
         val nombreErr = validateNombre(s.nombre)
         val descripcionErr = validateDescripcion(s.descripcion)
-        val priceErr = validatePrice(s.price.toString())
+        val priceErr = validatePrice(s.price)
         val imageErr=validateImagePath(s.imagePath)
         val newState = s.copy(
             nombreError = nombreErr,
             imagePathError = imageErr,
-
+            priceError = priceErr,
+            descripcionError = descripcionErr,
             submitted = true
         )
         _uiState.value = newState
-        return listOf(nombreErr, imageErr).all { it == null }
+        return listOf(nombreErr, imageErr, descripcionErr, priceErr).all { it == null }
     }
 
     //se le pasan lambdas para ejecutar código en caso de éxito o error

@@ -49,7 +49,7 @@ fun ProductoTPV(
             }else{
                 true
             }
-        }
+        } .filter { it.enabled }
 
     // Contenedor principal
     Column(

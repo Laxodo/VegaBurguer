@@ -96,7 +96,7 @@ class ProductosViewModel(
             formState.descripcion,
             formState.imagePath,
             formState.enabled,
-            formState.price,
+            formState.price.toFloat(),
             formState.id_categoria
         )
         viewModelScope.launch {
@@ -116,7 +116,7 @@ class ProductosViewModel(
             formState.descripcion,
             formState.imagePath,
             formState.enabled,
-            formState.price,
+            formState.price.toFloat(),
             formState.id_categoria
         )
         viewModelScope.launch {

@@ -5,7 +5,7 @@ data class ProductoFormState(
     val descripcion: String = "",
     val imagePath: String ="default",
     val enabled: Boolean = false,
-    val price: Float = 0.0f,
+    val price: String = "",
     val id_categoria: String = "",
     // errores (null = sin error)
     val nombreError: String? = null,

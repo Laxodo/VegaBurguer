@@ -48,7 +48,7 @@ fun CategoriaTPV(
         }else{
             true
         }
-    }
+    }.filter { it.enabled }
 
     // Contenedor principal
     Column(

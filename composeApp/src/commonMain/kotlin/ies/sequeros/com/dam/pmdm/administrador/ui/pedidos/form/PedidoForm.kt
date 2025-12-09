@@ -38,8 +38,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import ies.sequeros.com.dam.pmdm.administrador.modelo.LineaPedido
 import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.PedidosViewModel
 
 import ies.sequeros.com.dam.pmdm.commons.ui.ImagenDesdePath
@@ -158,6 +160,40 @@ fun PedidoForm(
                     color = MaterialTheme.colorScheme.error
                 )
             }
+            HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
+            /*if (it.listar.isNotEmpty()) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = "Productos:",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontWeight = FontWeight.Medium
+                    )
+                    it.listar.forEach { linea ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "${LineaPedido.amount}x ${LineaPedido.producto}",
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier.weight(1f)
+                            )
+                            Text(
+                                text = "${String.format("%.2f", LineaPedido.ProductPrice.toBigDecimal())}",
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+                }
+            }*/
+            HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
             Spacer(modifier = Modifier.height(2.dp))
             OutlinedTextField(
                 value = state.totalPrice.toString(),

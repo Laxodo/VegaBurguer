@@ -75,7 +75,7 @@ fun App(
         productoRepositorio, categoriaRepositorio,almacenImagenes
     ) }
     val pedidoViewModel = viewModel { PedidosViewModel(
-        pedidoRepositorio, dependienteRepositorio, lineaPedidoRepositorio, almacenImagenes
+        pedidoRepositorio, productoRepositorio, dependienteRepositorio, lineaPedidoRepositorio, almacenImagenes
     ) }
     val categoriaTPVViewModel = viewModel { CategoriaTPVViewModel(categoriaRepositorio, almacenImagenes) }
     val productoTPVViewModel = viewModel { ProductoTPVViewModel(productoRepositorio, categoriaRepositorio, almacenImagenes) }

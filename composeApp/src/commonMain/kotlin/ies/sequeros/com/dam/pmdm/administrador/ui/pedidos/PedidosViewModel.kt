@@ -9,6 +9,7 @@ import ies.sequeros.com.dam.pmdm.administrador.modelo.IDependienteRepositorio
 import ies.sequeros.com.dam.pmdm.administrador.modelo.ILineaPedidoRepositorio
 import ies.sequeros.com.dam.pmdm.commons.infraestructura.AlmacenDatos
 import ies.sequeros.com.dam.pmdm.administrador.modelo.IPedidoRepositorio
+import ies.sequeros.com.dam.pmdm.administrador.modelo.IProductoRepositorio
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 class PedidosViewModel(
     //private val administradorViewModel: MainAdministradorViewModel,
     private val pedidoRepositorio: IPedidoRepositorio,
+    private val productoRepositorio: IProductoRepositorio,
     private val dependienteRepositorio: IDependienteRepositorio,
     private val lineaPedidoRepositorio: ILineaPedidoRepositorio,
      val almacenDatos: AlmacenDatos
@@ -33,7 +35,7 @@ class PedidosViewModel(
     val selected = _selected.asStateFlow()
 
     init {
-        listarPedidoUseCase = ListarPedidoUseCase(pedidoRepositorio,dependienteRepositorio, lineaPedidoRepositorio, almacenDatos)
+        listarPedidoUseCase = ListarPedidoUseCase(pedidoRepositorio,productoRepositorio, dependienteRepositorio, lineaPedidoRepositorio, almacenDatos)
         viewModelScope.launch {
             var items: List<PedidoDTO>? = listarPedidoUseCase.invoke()
             _items.value.clear()

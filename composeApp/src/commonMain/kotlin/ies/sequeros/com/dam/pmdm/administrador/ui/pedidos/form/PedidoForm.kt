@@ -182,43 +182,12 @@ fun PedidoForm(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "${linea.amount}x ${linea.id_producto}",
+                                text = "${linea.nombreProducto} x${linea.amount}",
                                 style = MaterialTheme.typography.bodyMedium,
                                 modifier = Modifier.weight(1f)
                             )
                             Text(
-                                text = "${String.format("%.2f", linea.productPrice.toBigDecimal())}",
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontWeight = FontWeight.SemiBold,
-                                color = MaterialTheme.colorScheme.primary
-                            )
-                        }
-                    }
-                }
-            } else {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Text(
-                        text = "Productos:",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Medium
-                    )
-                    item?.listar?.forEach { linea ->
-                        Row(
-                            modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "${linea.amount}x ${linea.id_producto}",
-                                style = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier.weight(1f)
-                            )
-                            Text(
-                                text = "${String.format("%.2f", linea.productPrice.toBigDecimal())}",
+                                text = "${String.format("%.2f", linea.ProductPrice.toBigDecimal())}",
                                 style = MaterialTheme.typography.bodyMedium,
                                 fontWeight = FontWeight.SemiBold,
                                 color = MaterialTheme.colorScheme.primary

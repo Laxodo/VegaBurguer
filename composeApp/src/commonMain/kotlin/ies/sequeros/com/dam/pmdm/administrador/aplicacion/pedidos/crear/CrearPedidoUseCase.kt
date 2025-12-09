@@ -21,7 +21,8 @@ class CrearPedidoUseCase(private val repositorio: IPedidoRepositorio, private va
             pendingProducts = crearPedidoCommand.pendingProducts,
             totalPrice = crearPedidoCommand.totalPrice,
             dat3 = crearPedidoCommand.dat3,
-            id_dependiente = crearPedidoCommand.id_dependiente
+            id_dependiente = crearPedidoCommand.id_dependiente,
+            listar = crearPedidoCommand.listar
         )
         val element = repositorio.findByName(item.clientName)
         if(element!=null)

@@ -1,15 +1,17 @@
 package ies.sequeros.com.dam.pmdm.administrador.aplicacion.pedidos.listar
 
+import ies.sequeros.com.dam.pmdm.administrador.modelo.LineaPedido
 import ies.sequeros.com.dam.pmdm.administrador.modelo.Pedido
 
-fun Pedido.toDTO(dependiente: String) = PedidoDTO(
+fun Pedido.toDTO(dependiente: String, lista: List<LineaPedido>) = PedidoDTO(
     id = id,
     clientName = clientName,
     productNumber = productNumbers,
     pendingProducts = pendingProducts,
     totalPrice = totalPrice,
     date = dat3,
-    dependiente = dependiente
+    dependiente = dependiente,
+    listar = lista
 )
 fun PedidoDTO.toPedido(id_dependiente: String)= Pedido(
     id = id,

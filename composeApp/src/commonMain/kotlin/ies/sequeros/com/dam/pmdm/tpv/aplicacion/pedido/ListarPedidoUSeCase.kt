@@ -7,8 +7,8 @@ import ies.sequeros.com.dam.pmdm.commons.infraestructura.AlmacenDatos
 
 class ListarPedidoUSeCase (private val repositorio: IPedidoRepositorio, private val almacenDatos: AlmacenDatos) {
 
-    suspend fun invoke( ): List<PedidoDTO> {
+    /*suspend fun invoke( ): List<PedidoDTO> {
         val items= repositorio.getAll().map { it.toDTO() }
         return items
-    }
+    }*/
 }

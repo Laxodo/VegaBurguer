@@ -304,7 +304,9 @@ fun MainAdministrador(
                         navController.popBackStack()
                     },{
                         navController.popBackStack()
-                    }
+                    },
+                        pedidosViewModel.selected.collectAsState().value
+
                 )
             }
             composable (AdminRoutes.PedidoData) {
@@ -313,7 +315,7 @@ fun MainAdministrador(
                         navController.popBackStack()
                     },{
                         navController.popBackStack()
-                    }
+                    }, pedidosViewModel.selected.collectAsState().value
                 )
             }
 

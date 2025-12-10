@@ -16,11 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.form.PedidoFormState
 
 @Composable
 fun CarritoTPV(
     carritoTPVViewModel: CarritoTPVViewModel,
-    onComprar: ()-> Unit
+    onComprar: (PedidoFormState)-> Unit
 ) {
     val items by carritoTPVViewModel.items.collectAsState()
 
@@ -43,7 +44,19 @@ fun CarritoTPV(
                 })
             }
         }
-        Button( onClick = onComprar ){
+        Button( onClick = {
+            onComprar(
+                PedidoFormState(
+                    clientName = "",
+                    productNumber = carritoTPVViewModel.totalProducts.value,
+                    pendingProducts = 0,
+                    totalPrice = carritoTPVViewModel.totalPrice.value,
+                    date = "",
+                    id_dependiente = "",
+                    listar = carritoTPVViewModel.items.value
+                )
+            )
+        }){
             Text("Comprar")
         }
     }

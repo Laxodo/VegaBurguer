@@ -59,7 +59,7 @@ fun App(
     val categoriaTPVViewModel = viewModel { CategoriaTPVViewModel(categoriaRepositorio, almacenImagenes) }
     val productoTPVViewModel = viewModel { ProductoTPVViewModel(productoRepositorio, categoriaRepositorio, almacenImagenes) }
     val pedidoTPVViewModel = viewModel { CarritoTPVViewModel() }
-    val mainTPVViewModel = viewModel { MainTPVViewModel() }
+    val mainTPVViewModel = viewModel { MainTPVViewModel(pedidoRepositorio, lineaPedidoRepositorio, productoRepositorio, dependienteRepositorio) }
 
     appViewModel.setWindowsAdatativeInfo( currentWindowAdaptiveInfo())
     val navController= rememberNavController()

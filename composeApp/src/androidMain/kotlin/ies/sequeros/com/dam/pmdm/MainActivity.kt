@@ -20,6 +20,7 @@ class MainActivity : ComponentActivity() {
         val categoriaRepositorio: ICategoriaRepositorio = FileCategoriasRepository(almacenDatos)
         val productoRepositorio: IProductoRepositorio = FileProductoRepository(almacenDatos)
         val pedidoRepositorio: IPedidoRepositorio = FilePedidoRepository(almacenDatos)
+        val lineaPedidoRepository: ILineaPedidoRepositorio = FileLineaPedidoRepository(almacenDatos)
 
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
             //pasan a la aplicación,
             val almacenImagenes:AlmacenDatos=  AlmacenDatos(this)
 
-            App(dependienteRepositorio,categoriaRepositorio, productoRepositorio, pedidoRepositorio, almacenImagenes)
+            App(dependienteRepositorio,categoriaRepositorio, productoRepositorio, pedidoRepositorio, lineaPedidoRepository, almacenImagenes)
         }
     }
 }

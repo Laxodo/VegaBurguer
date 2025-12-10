@@ -16,7 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import ies.sequeros.com.dam.pmdm.administrador.modelo.LineaPedido
 import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.form.PedidoFormState
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
 fun CarritoTPV(
@@ -47,13 +51,23 @@ fun CarritoTPV(
         Button( onClick = {
             onComprar(
                 PedidoFormState(
-                    clientName = "",
+                    clientName = carritoTPVViewModel.clientName,
                     productNumber = carritoTPVViewModel.totalProducts.value,
                     pendingProducts = 0,
                     totalPrice = carritoTPVViewModel.totalPrice.value,
-                    date = "",
+                    date = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date()),
                     id_dependiente = "",
-                    listar = carritoTPVViewModel.items.value
+                    listar = carritoTPVViewModel.items.value.map {item ->
+                        LineaPedido(
+                            id = "",
+                            amount = item.amount,
+                            total = item.total,
+                            productPrice = item.productPrice,
+                            delivered = false,
+                            id_pedido = "",
+                            id_producto = item.productID
+                        )
+                    }
                 )
             )
         }){

@@ -58,7 +58,7 @@ fun App(
     ) }
     val categoriaTPVViewModel = viewModel { CategoriaTPVViewModel(categoriaRepositorio, almacenImagenes) }
     val productoTPVViewModel = viewModel { ProductoTPVViewModel(productoRepositorio, categoriaRepositorio, almacenImagenes) }
-    val pedidoTPVViewModel = viewModel { CarritoTPVViewModel() }
+    val carritoTPVViewModel = viewModel { CarritoTPVViewModel() }
     val mainTPVViewModel = viewModel { MainTPVViewModel(pedidoRepositorio, lineaPedidoRepositorio, productoRepositorio, dependienteRepositorio) }
 
     appViewModel.setWindowsAdatativeInfo( currentWindowAdaptiveInfo())
@@ -86,6 +86,7 @@ fun App(
             }
             composable(AppRoutes.TPVLogin) {
                 TPVLoginForm({
+                    carritoTPVViewModel.clientName = it
                     navController.navigate(AppRoutes.TPV) {
                         launchSingleTop = true
                     }
@@ -97,7 +98,7 @@ fun App(
                 MainTPV(appViewModel,
                     mainTPVViewModel,
                     categoriaTPVViewModel,
-                    productoTPVViewModel, pedidoTPVViewModel,{
+                    productoTPVViewModel, carritoTPVViewModel,{
                         navController.popBackStack()
                     })
             }

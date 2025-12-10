@@ -9,6 +9,6 @@ data class LineaPedido (
     val total: Float,
     val productPrice: Float,
     val delivered: Boolean,
-    val id_pedido: String,
+    var id_pedido: String,
     val id_producto: String
 )

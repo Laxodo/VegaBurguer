@@ -18,6 +18,7 @@ class CarritoTPVViewModel: ViewModel() {
     private val _totalProducts = MutableStateFlow(0)
     val totalPrice: StateFlow<Float> = _totalPrice.asStateFlow()
     val totalProducts: StateFlow<Int> = _totalProducts.asStateFlow()
+    var clientName: String = ""
 
     fun addProducto(item:ProductoDTO?){
         if (item == null){return}

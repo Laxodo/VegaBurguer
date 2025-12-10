@@ -57,4 +57,14 @@ class PedidosViewModel(
         }
 
     }
+
+    fun reload(){
+        viewModelScope.launch {
+            var items: List<PedidoDTO>? = listarPedidoUseCase.invoke()
+            _items.value.clear()
+            _items.value.addAll(items ?: emptyList())
+
+        }
+    }
+
 }

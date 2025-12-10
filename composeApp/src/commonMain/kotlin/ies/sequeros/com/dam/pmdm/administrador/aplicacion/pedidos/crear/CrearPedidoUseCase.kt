@@ -26,7 +26,7 @@ class CrearPedidoUseCase(private val repositorio: IPedidoRepositorio, private va
             id_dependiente = crearPedidoCommand.id_dependiente
         )
 
-        val lineasPedido = repositorioLineaPedido.getAll().filter { it.id_pedido == item.id }
+        val lineasPedido = crearPedidoCommand.listar
         val productos = repositorioProducto.getAll()
         val nombresProductos = productos.associateBy({ it.id }, { it.name })
 
@@ -41,6 +41,12 @@ class CrearPedidoUseCase(private val repositorio: IPedidoRepositorio, private va
                 producto = linea.id_producto,
                 nombreProducto = nombresProductos[linea.id_producto] ?: "Desconocido"
             )
+        }
+        repositorio.add(item)
+        lineasPedido.forEach { item ->
+            item.id = generateUUID()
+            item.id_pedido = id
+            repositorioLineaPedido.add(item)
         }
 
 // Finalmente, llamar a toDTO con la lista correcta

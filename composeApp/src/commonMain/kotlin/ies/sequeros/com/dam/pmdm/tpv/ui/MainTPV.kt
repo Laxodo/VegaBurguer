@@ -104,8 +104,8 @@ fun MainTPV(
             }
             composable(TPVRoutes.Carrito) {
                 CarritoTPV(carritoTPVViewModel, {
-                    mainTPVViewModel.add()
-                    onExit
+                    mainTPVViewModel.add(it)
+                    onExit()
                 })
             }
         }

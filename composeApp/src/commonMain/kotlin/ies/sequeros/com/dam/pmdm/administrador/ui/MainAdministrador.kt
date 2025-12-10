@@ -131,6 +131,7 @@ fun MainAdministrador(
             ItemOption(
                 Icons.AutoMirrored.Filled.FactCheck,
                 {
+                    pedidosViewModel.reload()
                     navController.navigate(AdminRoutes.Pedidos) {
                         //
                         launchSingleTop = true

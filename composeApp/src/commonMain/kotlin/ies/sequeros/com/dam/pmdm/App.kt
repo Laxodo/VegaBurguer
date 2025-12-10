@@ -11,6 +11,7 @@ import ies.sequeros.com.dam.pmdm.administrador.aplicacion.categorias.listar.List
 import ies.sequeros.com.dam.pmdm.administrador.modelo.ICategoriaRepositorio
 import ies.sequeros.com.dam.pmdm.commons.infraestructura.AlmacenDatos
 import ies.sequeros.com.dam.pmdm.administrador.modelo.IDependienteRepositorio
+import ies.sequeros.com.dam.pmdm.administrador.modelo.ILineaPedidoRepositorio
 import ies.sequeros.com.dam.pmdm.administrador.modelo.IPedidoRepositorio
 import ies.sequeros.com.dam.pmdm.administrador.modelo.IProductoRepositorio
 
@@ -35,6 +36,7 @@ fun App(
     categoriaRepositorio: ICategoriaRepositorio,
     productoRepositorio: IProductoRepositorio,
     pedidoRepositorio: IPedidoRepositorio,
+    lineaPedidoRepositorio: ILineaPedidoRepositorio,
     almacenImagenes:AlmacenDatos) {
 
     //view model
@@ -52,7 +54,7 @@ fun App(
         productoRepositorio, categoriaRepositorio,almacenImagenes
     ) }
     val pedidoViewModel = viewModel { PedidosViewModel(
-        pedidoRepositorio, almacenImagenes
+        pedidoRepositorio, productoRepositorio, dependienteRepositorio, lineaPedidoRepositorio, almacenImagenes
     ) }
     val categoriaTPVViewModel = viewModel { CategoriaTPVViewModel(categoriaRepositorio, almacenImagenes) }
     val productoTPVViewModel = viewModel { ProductoTPVViewModel(productoRepositorio, categoriaRepositorio, almacenImagenes) }

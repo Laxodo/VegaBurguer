@@ -291,6 +291,11 @@ fun MainAdministrador(
                     navController.navigate(AdminRoutes.Pedido) {
                         launchSingleTop = true
                     }
+                }, {
+                    pedidosViewModel.setSelectedPedido(it)
+                    navController.navigate(AdminRoutes.PedidoData) {
+                        launchSingleTop = true
+                    }
                 })
             }
             composable (AdminRoutes.Pedido){
@@ -299,7 +304,18 @@ fun MainAdministrador(
                         navController.popBackStack()
                     },{
                         navController.popBackStack()
-                    }
+                    },
+                        pedidosViewModel.selected.collectAsState().value
+
+                )
+            }
+            composable (AdminRoutes.PedidoData) {
+                PedidoForm(
+                    pedidosViewModel,{
+                        navController.popBackStack()
+                    },{
+                        navController.popBackStack()
+                    }, pedidosViewModel.selected.collectAsState().value
                 )
             }
 

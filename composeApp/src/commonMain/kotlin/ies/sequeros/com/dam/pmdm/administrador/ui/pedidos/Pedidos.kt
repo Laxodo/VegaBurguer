@@ -39,7 +39,8 @@ import ies.sequeros.com.dam.pmdm.administrador.ui.MainAdministradorViewModel
 fun Pedidos(
     mainAdministradorViewModel: MainAdministradorViewModel,
     pedidosViewModel: PedidosViewModel,
-    onSelectItem:(PedidoDTO?)->Unit
+    onSelectItem:(PedidoDTO?)->Unit,
+    onView:(PedidoDTO?) -> Unit
 ){
     val items by pedidosViewModel.items.collectAsState()
     var searchText by remember { mutableStateOf("")}
@@ -81,7 +82,7 @@ fun Pedidos(
             )
         ){
             items(filteredItems.size) { item ->
-                PedidoCard(filteredItems.get(item),{})
+                PedidoCard(filteredItems.get(item),{onView(it)})
 
             }
         }

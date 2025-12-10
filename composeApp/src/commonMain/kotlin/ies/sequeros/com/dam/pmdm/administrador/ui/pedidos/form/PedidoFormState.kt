@@ -5,9 +5,13 @@ data class PedidoFormState(
     val productNumber: Int = 0,
     val pendingProducts: Int = 0,
     val totalPrice: Float = 0.0f,
-    val date: Int = 0,
+    val date: String = "",
     // errores (null = sin error)
     val nombreError: String? = null,
+    val productNumberError: String? = null,
+    val pendingProductsError: String? = null,
+    val totalPriceError: String? = null,
+    val dateError: String? = null,
 
     // para controlar si se intentó enviar (mostrar errores globales)
     val submitted: Boolean = false

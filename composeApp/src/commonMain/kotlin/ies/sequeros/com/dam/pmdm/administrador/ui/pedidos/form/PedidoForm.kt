@@ -37,8 +37,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import ies.sequeros.com.dam.pmdm.administrador.aplicacion.lineapedido.listar.LineaPedidoDTO
+import ies.sequeros.com.dam.pmdm.administrador.aplicacion.pedidos.listar.PedidoDTO
+import ies.sequeros.com.dam.pmdm.administrador.modelo.LineaPedido
 import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.PedidosViewModel
 
 import ies.sequeros.com.dam.pmdm.commons.ui.ImagenDesdePath
@@ -54,6 +59,7 @@ fun PedidoForm(
     pedidoViewModel: PedidosViewModel,
     onClose: () -> Unit,
     onConfirm: (datos: PedidoFormState) -> Unit = {},
+    item: PedidoDTO?,
     pedidoFormularioViewModel: PedidoFormViewModel = viewModel {
         PedidoFormViewModel(
             pedidoViewModel.selected.value, onConfirm
@@ -100,7 +106,7 @@ fun PedidoForm(
                     text = if (selected == null)
                         "Crear nuevo usuario"
                     else
-                        "Editar usuario",
+                        "Detalles del pedido",
                     style = MaterialTheme.typography.headlineSmall,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -113,12 +119,110 @@ fun PedidoForm(
             OutlinedTextField(
                 value = state.clientName,
                 onValueChange = { pedidoFormularioViewModel.onNombreChange(it) },
-                label = { Text("Nombre completo") },
+                label = { Text("Nombre del cliente") },
                 leadingIcon = { Icon(Icons.Default.PersonOutline, contentDescription = null) },
                 isError = state.nombreError != null,
                 modifier = Modifier.fillMaxWidth()
             )
             state.nombreError?.let {
+                Text(
+                    it,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+            Spacer(modifier = Modifier.height(2.dp))
+            OutlinedTextField(
+                value = state.productNumber.toString(),
+                onValueChange = { pedidoFormularioViewModel.onProductNumberChange(it) },
+                label = { Text("Numero de productos") },
+                leadingIcon = { Icon(Icons.Default.PersonOutline, contentDescription = null) },
+                isError = state.productNumberError != null,
+                modifier = Modifier.fillMaxWidth()
+            )
+            state.productNumberError?.let {
+                Text(
+                    it,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+            Spacer(modifier = Modifier.height(2.dp))
+            OutlinedTextField(
+                value = state.pendingProducts.toString(),
+                onValueChange = { pedidoFormularioViewModel.onPendingProductsChange(it) },
+                label = { Text("Número de productos faltantes por entregar") },
+                leadingIcon = { Icon(Icons.Default.PersonOutline, contentDescription = null) },
+                isError = state.pendingProductsError != null,
+                modifier = Modifier.fillMaxWidth()
+            )
+            state.pendingProductsError?.let {
+                Text(
+                    it,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+            HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
+            if (item?.listar?.isNotEmpty()?: true) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = "Productos:",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontWeight = FontWeight.Medium
+                    )
+                    item?.listar?.forEach { linea ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "${linea.nombreProducto} x${linea.amount}",
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier.weight(1f)
+                            )
+                            Text(
+                                text = "${String.format("%.2f", linea.ProductPrice.toBigDecimal())}",
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+                }
+            }
+            HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.outlineVariant)
+            Spacer(modifier = Modifier.height(2.dp))
+            OutlinedTextField(
+                value = state.totalPrice.toString(),
+                onValueChange = { pedidoFormularioViewModel.onPriceChange(it) },
+                label = { Text("Precio total") },
+                leadingIcon = { Icon(Icons.Default.PersonOutline, contentDescription = null) },
+                isError = state.totalPriceError != null,
+                modifier = Modifier.fillMaxWidth()
+            )
+            state.totalPriceError?.let {
+                Text(
+                    it,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+            Spacer(modifier = Modifier.height(2.dp))
+            OutlinedTextField(
+                value = state.date,
+                onValueChange = { pedidoFormularioViewModel.onDateChange(it) },
+                label = { Text("Fecha") },
+                leadingIcon = { Icon(Icons.Default.PersonOutline, contentDescription = null) },
+                isError = state.dateError != null,
+                modifier = Modifier.fillMaxWidth()
+            )
+            state.dateError?.let {
                 Text(
                     it,
                     style = MaterialTheme.typography.labelSmall,

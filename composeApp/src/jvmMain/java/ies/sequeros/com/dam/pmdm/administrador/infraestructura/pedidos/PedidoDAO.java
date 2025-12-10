@@ -20,8 +20,8 @@ public class PedidoDAO implements IDao<Pedido> {
     private final String selectbyid = "select * from " + table_name + " where id = ?";
     private final String findbyname = "select * from " + table_name + " where name = ?";
     private final String deletebyid = "select * from " + table_name + " where id = ?";
-    private final String insert = "INSERT INTO " + table_name + " (id, clienteName, productName, pendingProduct, totalPrice, date, id_dependiente)" + " VALUES(?, ?, ?, ?, ?, ?, ?)";
-    private final String update = "UPDATE "+ table_name + " SET clientName = ?, productName = ?, pendingProduct = ?, totalPrice = ?, date = ?, id_dependiente = ?" + " WHERE id = ?";
+    private final String insert = "INSERT INTO " + table_name + " (id, clientName, productNumbers, pendingProduct, totalPrice, date, id_dependiente)" + " VALUES(?, ?, ?, ?, ?, ?, ?)";
+    private final String update = "UPDATE "+ table_name + " SET clientName = ?, productNumbers = ?, pendingProduct = ?, totalPrice = ?, date = ?, id_dependiente = ?" + " WHERE id = ?";
 
     public PedidoDAO() {
     }

@@ -31,9 +31,9 @@ class BBDDLineaPedidoRepository (
         return bbddRepositorioLineaPedidoJava.all
     }
 
-    override suspend fun findByName(name: String): LineaPedido? {
+    /*override suspend fun findByName(name: String): LineaPedido? {
         return bbddRepositorioLineaPedidoJava.findByName( name)
-    }
+    }*/
 
     override suspend fun getById(id: String): LineaPedido? {
         return bbddRepositorioLineaPedidoJava.getById(id)

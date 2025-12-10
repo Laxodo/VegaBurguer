@@ -30,6 +30,11 @@ class CrearPedidoUseCase(private val repositorio: IPedidoRepositorio, private va
         val productos = repositorioProducto.getAll()
         val nombresProductos = productos.associateBy({ it.id }, { it.name })
 
+        lineasPedido.forEach { item ->
+            item.id = generateUUID()
+            item.id_pedido = id
+        }
+
         val lineasPedidoDTO: List<LineaPedidoDTO> = lineasPedido.map { linea ->
             LineaPedidoDTO(
                 id = linea.id,
@@ -44,8 +49,6 @@ class CrearPedidoUseCase(private val repositorio: IPedidoRepositorio, private va
         }
         repositorio.add(item)
         lineasPedido.forEach { item ->
-            item.id = generateUUID()
-            item.id_pedido = id
             repositorioLineaPedido.add(item)
         }
 

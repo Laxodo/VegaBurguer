@@ -1,8 +1,10 @@
 package ies.sequeros.com.dam.pmdm.tpv.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,13 +13,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.House
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.filled.RemoveCircle
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -70,13 +75,13 @@ fun MainTPV(
     mainTPVViewModel.setBottomOptions(
         listOf(
             ItemOption(
-                Icons.Default.RemoveCircle, {
+                Icons.Default.Remove, {
                     carritoTPVViewModel.removeProducto(productoViewModel.selected.value)
                 },
                 "Remove"
             ),
             ItemOption(
-                Icons.Default.AddCircle, {
+                Icons.Default.Add, {
                     carritoTPVViewModel.addProducto(productoViewModel.selected.value)
                 },
                 "Add"
@@ -111,59 +116,91 @@ fun MainTPV(
         }
     }
 
-    if (wai?.windowSizeClass?.windowWidthSizeClass == WindowWidthSizeClass.COMPACT) {
+    if (wai?.windowSizeClass?.windowWidthSizeClass == WindowWidthSizeClass.COMPACT || true) {
         Scaffold(
             bottomBar = {
 
-                NavigationBar {
-                    mainTPVViewModel.filteredBottomItems.collectAsState().value.forEach { item ->
-                        // if(!item.admin || (item.admin && appViewModel.hasPermission()))
-                        NavigationBarItem(
-                            selected = true,
-                            onClick = { item.action() },
-                            icon = { Icon(item.icon, contentDescription = item.name) },
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.primary)
+                        .padding(horizontal = 16.dp, vertical = 10.dp)
+                ) {
+                    NavigationBar(
 
-                        )
+                    ) {
+                        mainTPVViewModel.filteredBottomItems.collectAsState().value.forEach { item ->
+                            // if(!item.admin || (item.admin && appViewModel.hasPermission()))
+                            NavigationBarItem(
+                                selected = true,
+                                onClick = { item.action() },
+                                icon = { Icon(item.icon, contentDescription = item.name) },
+
+                                )
+                        }
                     }
                 }
             },
             topBar = {
-                NavigationBar {
-
-                    NavigationBarItem(
-
-                        selected = true,
-                        onClick = {
-                            if (navController.currentDestination?.route != TPVRoutes.Categorias){
-                                navController.popBackStack()
-                            }else{ onExit() }
-                        },
-                        icon = { Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null) },
-                    )
-                    NavigationBarItem(
-
-                        selected = true,
-                        onClick = {
-                            if (navController.currentDestination?.route != TPVRoutes.Categorias){
-                                navController.popBackStack()
-                            }else{ onExit() }
-                        },
-                        icon = {Icon(imageVector = Icons.Default.Home, contentDescription = null)},
-                    )
-                    Text(totalPrice.value.toString() + "€")
-                    NavigationBarItem(
-
-                        selected = true,
-                        onClick = {
-                            navController.navigate(TPVRoutes.Carrito) {
-                                launchSingleTop = true
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.primary)
+                        .padding(horizontal = 16.dp, vertical = 10.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            IconButton(
+                                onClick = {
+                                    if (navController.currentDestination?.route != TPVRoutes.Categorias) {
+                                        navController.popBackStack()
+                                    } else { onExit() }
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onPrimary
+                                )
                             }
-                        },
-                        icon = { Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = null) },
-                    )
-                    Text(currentProducts.value.toString())
+                            Text(
+                                "Almoradi",
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                totalPrice.value.toString() + "€",
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
+
+                            IconButton(
+                                onClick = {
+                                    navController.navigate(TPVRoutes.Carrito) {
+                                        launchSingleTop = true
+                                    }
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.ShoppingCart,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onPrimary
+                                )
+                            }
+
+                            Text(
+                                currentProducts.value.toString(),
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
+                    }
                 }
             }
+
         ) { innerPadding ->
             Box(Modifier.padding(innerPadding)) {
                 navegador()

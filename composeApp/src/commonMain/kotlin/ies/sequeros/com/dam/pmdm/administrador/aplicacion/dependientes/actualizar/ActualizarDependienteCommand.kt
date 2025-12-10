@@ -7,5 +7,6 @@ data class ActualizarDependienteCommand(
     val email: String,
     val imagePath: String,
     val enabled: Boolean,
+    val password: String,
     val admin: Boolean
 )

@@ -93,12 +93,12 @@ fun ProductoCardTPV(
                 DividerDefaults.Thickness, MaterialTheme.colorScheme.outlineVariant
             )
 
-            //  Descripcion
+            //  Precio
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = item.description,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    text = item.price.toString() + "€",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }

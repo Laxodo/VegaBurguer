@@ -207,7 +207,7 @@ fun MainAdministrador(
                     dependientesViewModel, {
                         navController.popBackStack()
                     },{
-                        //dependientesViewModel.save(it)
+                        dependientesViewModel.save(it)
                         navController.popBackStack()
                     }
                 )

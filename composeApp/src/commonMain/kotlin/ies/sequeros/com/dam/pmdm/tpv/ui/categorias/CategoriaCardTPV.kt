@@ -90,20 +90,6 @@ fun CategoriaCardTPV(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-
-            HorizontalDivider(
-                Modifier.fillMaxWidth(0.8f),
-                DividerDefaults.Thickness, MaterialTheme.colorScheme.outlineVariant
-            )
-
-            //  Descripcion
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = item.description,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
         }
     }
 }

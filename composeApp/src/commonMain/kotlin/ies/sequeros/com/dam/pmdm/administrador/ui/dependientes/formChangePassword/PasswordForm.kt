@@ -50,6 +50,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.DependientesViewModel
+import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.form.DependienteFormState
 
 import ies.sequeros.com.dam.pmdm.commons.ui.ImagenDesdePath
 import ies.sequeros.com.dam.pmdm.commons.ui.SelectorImagenComposable
@@ -63,7 +64,7 @@ fun PasswordForm(
     //appViewModel: AppViewModel,
     dependienteViewModel: DependientesViewModel,
     onClose: () -> Unit,
-    onConfirm: (datos: PasswordFormState) -> Unit = {},
+    onConfirm: (datos: DependienteFormState) -> Unit = {},
     passwordFormularioViewModel: PasswordFormViewModel = viewModel {
         PasswordFormViewModel(
             dependienteViewModel.selected.value, onConfirm

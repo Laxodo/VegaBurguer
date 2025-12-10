@@ -3,6 +3,7 @@ package ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.formChangePasswo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ies.sequeros.com.dam.pmdm.administrador.aplicacion.dependientes.listar.DependienteDTO
+import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.form.DependienteFormState
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -13,16 +14,21 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class PasswordFormViewModel (private val item: DependienteDTO?,
-                             onSuccess: (PasswordFormState) -> Unit): ViewModel() {
+                             onSuccess: (DependienteFormState) -> Unit): ViewModel() {
 
     private val _uiState = MutableStateFlow(
-        PasswordFormState(
+        DependienteFormState(
+            nombre = item?.name ?: "",
+            email = item?.email?:"",
+            enabled = item?.enabled?:false,
+            imagePath = item?.imagePath?:"",
+            isadmin = item?.isAdmin?:false,
             password = "",
             confirmPassword = ""
 
         )
     )
-    val uiState: StateFlow<PasswordFormState> = _uiState.asStateFlow()
+    val uiState: StateFlow<DependienteFormState> = _uiState.asStateFlow()
 
     //para saber si el formulario es válido
     val isFormValid: StateFlow<Boolean> = uiState.map { state ->
@@ -57,7 +63,7 @@ class PasswordFormViewModel (private val item: DependienteDTO?,
     }
 
     fun clear() {
-        _uiState.value = PasswordFormState()
+        _uiState.value = DependienteFormState()
     }
     private fun validatePassword(pw: String): String? {
         if (pw.isBlank()) return "La contraseña es obligatoria"
@@ -91,8 +97,8 @@ class PasswordFormViewModel (private val item: DependienteDTO?,
 
     //se le pasan lambdas para ejecutar código en caso de éxito o error
     fun submit(
-        onSuccess: (PasswordFormState) -> Unit,
-        onFailure: ((PasswordFormState) -> Unit)? = null
+        onSuccess: (DependienteFormState) -> Unit,
+        onFailure: ((DependienteFormState) -> Unit)? = null
     ) {
         //se ejecuta en una corrutina, evitando que se bloque la interfaz gráficas
         viewModelScope.launch {

@@ -36,6 +36,7 @@ class ActualizarDependienteUseCase(private val repositorio: IDependienteReposito
             //si se ha sustituido
             imgPath = nuevaImagePath,
             enabled = command.enabled,
+            password = command.password,
             isAdmin = command.admin
         )
         repositorio.update(newUser)

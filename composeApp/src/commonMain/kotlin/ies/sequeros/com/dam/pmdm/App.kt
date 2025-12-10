@@ -1,55 +1,65 @@
 package ies.sequeros.com.dam.pmdm
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ies.sequeros.com.dam.pmdm.administrador.AdministradorViewModel
-import ies.sequeros.com.dam.pmdm.administrador.aplicacion.dependientes.BorrarDependienteUseCase
-import ies.sequeros.com.dam.pmdm.administrador.aplicacion.dependientes.actualizar.ActualizarDependienteUseCase
-import ies.sequeros.com.dam.pmdm.administrador.aplicacion.dependientes.crear.CrearDependienteUseCase
-import ies.sequeros.com.dam.pmdm.administrador.aplicacion.dependientes.listar.ListarDependientesUseCase
-import ies.sequeros.com.dam.pmdm.administrador.infraestructura.memoria.FileDependienteRepository
-import ies.sequeros.com.dam.pmdm.administrador.infraestructura.memoria.MemDependienteRepository
+import ies.sequeros.com.dam.pmdm.administrador.aplicacion.categorias.listar.ListarCategoriaUseCase
+import ies.sequeros.com.dam.pmdm.administrador.modelo.ICategoriaRepositorio
 import ies.sequeros.com.dam.pmdm.commons.infraestructura.AlmacenDatos
 import ies.sequeros.com.dam.pmdm.administrador.modelo.IDependienteRepositorio
+import ies.sequeros.com.dam.pmdm.administrador.modelo.ILineaPedidoRepositorio
+import ies.sequeros.com.dam.pmdm.administrador.modelo.IPedidoRepositorio
+import ies.sequeros.com.dam.pmdm.administrador.modelo.IProductoRepositorio
 
 import ies.sequeros.com.dam.pmdm.administrador.ui.MainAdministrador
 import ies.sequeros.com.dam.pmdm.administrador.ui.MainAdministradorViewModel
 import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.DependientesViewModel
-
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import vegaburguer.composeapp.generated.resources.Res
-import vegaburguer.composeapp.generated.resources.compose_multiplatform
+import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.CategoriaViewModel
+import ies.sequeros.com.dam.pmdm.administrador.ui.productos.ProductosViewModel
+import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.PedidosViewModel
+import ies.sequeros.com.dam.pmdm.tpv.ui.MainTPV
+import ies.sequeros.com.dam.pmdm.tpv.ui.MainTPVViewModel
+import ies.sequeros.com.dam.pmdm.tpv.ui.categorias.CategoriaTPVViewModel
+import ies.sequeros.com.dam.pmdm.tpv.ui.login.TPVLoginForm
+import ies.sequeros.com.dam.pmdm.tpv.ui.productos.ProductoTPVViewModel
+import ies.sequeros.com.dam.pmdm.tpv.ui.carrito.CarritoTPVViewModel
 
 @Suppress("ViewModelConstructorInComposable")
 @Composable
 
-fun App( dependienteRepositorio : IDependienteRepositorio,almacenImagenes:AlmacenDatos) {
+fun App(
+    dependienteRepositorio : IDependienteRepositorio,
+    categoriaRepositorio: ICategoriaRepositorio,
+    productoRepositorio: IProductoRepositorio,
+    pedidoRepositorio: IPedidoRepositorio,
+    lineaPedidoRepositorio: ILineaPedidoRepositorio,
+    almacenImagenes:AlmacenDatos) {
 
     //view model
     val appViewModel= viewModel {  AppViewModel() }
     val mainViewModel= remember { MainAdministradorViewModel() }
     val administradorViewModel= viewModel { AdministradorViewModel() }
+    val listarCategoriaUseCase = ListarCategoriaUseCase(categoriaRepositorio, almacenImagenes)
     val dependientesViewModel = viewModel{ DependientesViewModel(
         dependienteRepositorio, almacenImagenes
     )}
+    val categoriaViewModel = viewModel { CategoriaViewModel(
+        categoriaRepositorio, almacenImagenes
+    ) }
+    val productoViewModel = viewModel { ProductosViewModel(
+        productoRepositorio, categoriaRepositorio,almacenImagenes
+    ) }
+    val pedidoViewModel = viewModel { PedidosViewModel(
+        pedidoRepositorio, productoRepositorio, dependienteRepositorio, lineaPedidoRepositorio, almacenImagenes
+    ) }
+    val categoriaTPVViewModel = viewModel { CategoriaTPVViewModel(categoriaRepositorio, almacenImagenes) }
+    val productoTPVViewModel = viewModel { ProductoTPVViewModel(productoRepositorio, categoriaRepositorio, almacenImagenes) }
+    val carritoTPVViewModel = viewModel { CarritoTPVViewModel() }
+    val mainTPVViewModel = viewModel { MainTPVViewModel(pedidoRepositorio, lineaPedidoRepositorio, productoRepositorio, dependienteRepositorio) }
 
     appViewModel.setWindowsAdatativeInfo( currentWindowAdaptiveInfo())
     val navController= rememberNavController()
@@ -63,13 +73,34 @@ fun App( dependienteRepositorio : IDependienteRepositorio,almacenImagenes:Almace
             composable(AppRoutes.Main) {
                 Principal({
                     navController.navigate(AppRoutes.Administrador)
-                },{},{})
+                },{},{navController.navigate(AppRoutes.TPVLogin)})
             }
             composable (AppRoutes.Administrador){
-                MainAdministrador(appViewModel,mainViewModel,administradorViewModel,
-                    dependientesViewModel,{
+                MainAdministrador(appViewModel,mainViewModel,listarCategoriaUseCase, administradorViewModel,
+                    dependientesViewModel,
+                    categoriaViewModel,
+                    pedidoViewModel,
+                    productoViewModel,{
                     navController.popBackStack()
                 })
+            }
+            composable(AppRoutes.TPVLogin) {
+                TPVLoginForm({
+                    carritoTPVViewModel.clientName = it
+                    navController.navigate(AppRoutes.TPV) {
+                        launchSingleTop = true
+                    }
+                }, {
+                    navController.popBackStack()
+                })
+            }
+            composable(AppRoutes.TPV){
+                MainTPV(appViewModel,
+                    mainTPVViewModel,
+                    categoriaTPVViewModel,
+                    productoTPVViewModel, carritoTPVViewModel,{
+                        navController.popBackStack()
+                    })
             }
 
         }

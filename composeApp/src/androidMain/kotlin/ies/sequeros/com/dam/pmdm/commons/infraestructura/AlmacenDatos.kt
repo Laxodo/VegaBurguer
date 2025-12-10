@@ -13,6 +13,7 @@ actual class AlmacenDatos(private val context: Context) {
     actual fun getAppDataDir(): String {
         return context.filesDir.absolutePath
     }
+
     actual suspend fun readFile(path: String, subdirectory:String): String {
         return withContext(Dispatchers.IO) {
             File(path + subdirectory).readText()
@@ -24,6 +25,7 @@ actual class AlmacenDatos(private val context: Context) {
             File(path + subdirectory).writeText(content)
         }
     }
+
     private fun getNameForSource(uri: Uri?, originalSource: String): String {
         uri ?: return File(originalSource).name
         return when (uri.scheme) {
@@ -47,6 +49,7 @@ actual class AlmacenDatos(private val context: Context) {
         const val CONTENT = "content"
         const val FILE = "file"
     }
+
     private fun getExtension(source:String):String{
         val uri = source.toUri()
         val cursor = context.contentResolver.query(uri, null, null, null, null)
@@ -62,6 +65,7 @@ actual class AlmacenDatos(private val context: Context) {
         }
         return ""
     }
+
     actual suspend fun copy(source: String, name: String,subpath:String):String =
         withContext(Dispatchers.IO) {
             val extension = getExtension(source)
@@ -119,7 +123,6 @@ actual class AlmacenDatos(private val context: Context) {
             name + "." + extension
         }
         //return target
-
 
     actual suspend fun remove(path: String) {
         File(path).delete()

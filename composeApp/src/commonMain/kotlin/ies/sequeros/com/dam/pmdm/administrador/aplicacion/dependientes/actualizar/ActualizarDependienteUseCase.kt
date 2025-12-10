@@ -27,15 +27,16 @@ class ActualizarDependienteUseCase(private val repositorio: IDependienteReposito
             almacenDatos.remove(itemDTO.imagePath)
             nuevaImagePath=almacenDatos.copy(command.imagePath,command.id,"/dependientes/")
         }else{
-            nuevaImagePath=item.imagePath
+            nuevaImagePath=item.imgPath
         }
 
         var newUser= item.copy(
             name=command.name,
             email = command.email,
             //si se ha sustituido
-            imagePath = nuevaImagePath,
+            imgPath = nuevaImagePath,
             enabled = command.enabled,
+            password = command.password,
             isAdmin = command.admin
         )
         repositorio.update(newUser)

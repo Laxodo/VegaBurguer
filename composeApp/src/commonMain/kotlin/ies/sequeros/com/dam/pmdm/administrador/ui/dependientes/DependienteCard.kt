@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.ManageAccounts
+import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.AssistChip
@@ -57,10 +58,11 @@ fun DependienteCard(
     item: DependienteDTO,
     onActivate: (item:DependienteDTO) -> Unit,
     onDeactivate: (item:DependienteDTO) -> Unit,
-    onView: () -> Unit,
+    onView: (DependienteDTO) -> Unit,
     onEdit: (DependienteDTO) -> Unit,
     onDelete: (item: DependienteDTO) -> Unit,
     onChangeAdmin: (item:DependienteDTO) -> Unit,
+    onPasswordChange: (item: DependienteDTO) -> Unit
 ) {
     val cardAlpha by animateFloatAsState(if (item.enabled) 1f else 0.5f)
     val imagePath =mutableStateOf(if(item.imagePath!=null && item.imagePath.isNotEmpty()) item.imagePath else "")
@@ -199,13 +201,18 @@ fun DependienteCard(
                 }
 
                 // Ver detalles
-                OutlinedIconButton(onClick = onView) {
+                OutlinedIconButton(onClick = { onView(item) }) {
                     Icon(Icons.AutoMirrored.Filled.Article, contentDescription = "Ver")
                 }
 
                 // Editar
                 OutlinedIconButton(onClick = { onEdit(item) }) {
                     Icon(Icons.Default.Edit, contentDescription = "Editar")
+                }
+
+                // profe ejemplo
+                OutlinedIconButton(onClick = { onPasswordChange(item) }) {
+                    Icon(Icons.Default.Password, contentDescription = "Editar")
                 }
 
                 // Eliminar

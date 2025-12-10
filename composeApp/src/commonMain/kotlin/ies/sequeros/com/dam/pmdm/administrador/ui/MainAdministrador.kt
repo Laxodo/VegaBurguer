@@ -42,10 +42,24 @@ import androidx.navigation.compose.rememberNavController
 import androidx.window.core.layout.WindowWidthSizeClass
 import ies.sequeros.com.dam.pmdm.AppViewModel
 import ies.sequeros.com.dam.pmdm.administrador.AdministradorViewModel
+import ies.sequeros.com.dam.pmdm.administrador.aplicacion.categorias.listar.ListarCategoriaUseCase
 
 import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.Dependientes
 import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.DependientesViewModel
 import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.form.DependienteForm
+
+import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.Categoria
+import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.CategoriaViewModel
+import ies.sequeros.com.dam.pmdm.administrador.ui.categorias.form.CategoriaForm
+import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.formChangePassword.PasswordForm
+
+import ies.sequeros.com.dam.pmdm.administrador.ui.productos.Productos
+import ies.sequeros.com.dam.pmdm.administrador.ui.productos.ProductosViewModel
+import ies.sequeros.com.dam.pmdm.administrador.ui.productos.form.ProductoForm
+
+import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.Pedidos
+import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.PedidosViewModel
+import ies.sequeros.com.dam.pmdm.administrador.ui.pedidos.form.PedidoForm
 
 
 @Suppress("ViewModelConstructorInComposable")
@@ -53,9 +67,12 @@ import ies.sequeros.com.dam.pmdm.administrador.ui.dependientes.form.DependienteF
 fun MainAdministrador(
     appViewModel: AppViewModel,
     mainViewModel: MainAdministradorViewModel,
+    listarCategoriaUseCase: ListarCategoriaUseCase,
     administradorViewModel: AdministradorViewModel,
     dependientesViewModel: DependientesViewModel,
-
+    categoriasViewModel: CategoriaViewModel,
+    pedidosViewModel: PedidosViewModel,
+    productosViewModel: ProductosViewModel,
 
     onExit: () -> Unit
 ) {
@@ -114,7 +131,8 @@ fun MainAdministrador(
             ItemOption(
                 Icons.AutoMirrored.Filled.FactCheck,
                 {
-                    navController.navigate(AdminRoutes.Pedido) {
+                    pedidosViewModel.reload()
+                    navController.navigate(AdminRoutes.Pedidos) {
                         //
                         launchSingleTop = true
                         popUpTo(AdminRoutes.Main)
@@ -162,9 +180,18 @@ fun MainAdministrador(
                     dependientesViewModel.setSelectedDependiente(it)
                     navController.navigate(AdminRoutes.Dependiente) {
                         launchSingleTop = true
-
                     }
-                })
+                },{
+                    dependientesViewModel.setSelectedDependiente(it)
+                    navController.navigate(AdminRoutes.DependienteData) {
+                        launchSingleTop = true
+                    }
+                },{
+                        dependientesViewModel.setSelectedDependiente(it)
+                        navController.navigate(AdminRoutes.DependientePasswd) {
+                            launchSingleTop = true
+                        }
+                    })
             }
             composable (AdminRoutes.Dependiente){
                 DependienteForm(
@@ -176,10 +203,125 @@ fun MainAdministrador(
                     }
                 )
             }
+            composable(AdminRoutes.DependientePasswd){
+                PasswordForm(
+                    dependientesViewModel, {
+                        navController.popBackStack()
+                    },{
+                        dependientesViewModel.save(it)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(AdminRoutes.DependienteData){
+                DependienteForm(
+                    dependientesViewModel, {
+                        navController.popBackStack()
+                    },{
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(AdminRoutes.Categorias){
+                Categoria(mainViewModel,categoriasViewModel,{
+                    categoriasViewModel.setSelectedCategoria(it)
+                    navController.navigate(AdminRoutes.Categoria) {
+                        launchSingleTop = true
+                    }
+                },{
+                    categoriasViewModel.setSelectedCategoria(it)
+                    navController.navigate(AdminRoutes.CategoriaData) {
+                        launchSingleTop = true
+                    }
+                })
+            }
+            composable (AdminRoutes.Categoria){
+                CategoriaForm(
+                    categoriasViewModel,{
+                        navController.popBackStack()
+                    },{
+                        categoriasViewModel.save(it)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable (AdminRoutes.CategoriaData){
+                CategoriaForm(
+                    categoriasViewModel,{
+                        navController.popBackStack()
+                    },{
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(AdminRoutes.Productos){
+                Productos(mainViewModel,productosViewModel,{
+                    productosViewModel.setSelectedProducto(it)
+                    navController.navigate(AdminRoutes.Producto) {
+                        launchSingleTop = true
+                    }
+                },{
+                    productosViewModel.setSelectedProducto(it)
+                    navController.navigate(AdminRoutes.ProductoData) {
+                        launchSingleTop = true
+                    }
+                })
+            }
+            composable (AdminRoutes.Producto){
+                ProductoForm(
+                    productosViewModel,categoriasViewModel,{
+                        navController.popBackStack()
+                    },{
+                        productosViewModel.save(it)
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable (AdminRoutes.ProductoData){
+                ProductoForm(
+                    productosViewModel,categoriasViewModel,{
+                        navController.popBackStack()
+                    },{
+                        navController.popBackStack()
+                    }
+                )
+            }
+            composable(AdminRoutes.Pedidos){
+                Pedidos(mainViewModel,pedidosViewModel,{
+                    pedidosViewModel.setSelectedPedido(it)
+                    navController.navigate(AdminRoutes.Pedido) {
+                        launchSingleTop = true
+                    }
+                }, {
+                    pedidosViewModel.setSelectedPedido(it)
+                    navController.navigate(AdminRoutes.PedidoData) {
+                        launchSingleTop = true
+                    }
+                })
+            }
+            composable (AdminRoutes.Pedido){
+                PedidoForm(
+                    pedidosViewModel,{
+                        navController.popBackStack()
+                    },{
+                        navController.popBackStack()
+                    },
+                        pedidosViewModel.selected.collectAsState().value
+
+                )
+            }
+            composable (AdminRoutes.PedidoData) {
+                PedidoForm(
+                    pedidosViewModel,{
+                        navController.popBackStack()
+                    },{
+                        navController.popBackStack()
+                    }, pedidosViewModel.selected.collectAsState().value
+                )
+            }
 
         }
     }
-
 
 
     if (wai?.windowSizeClass?.windowWidthSizeClass == WindowWidthSizeClass.COMPACT) {
